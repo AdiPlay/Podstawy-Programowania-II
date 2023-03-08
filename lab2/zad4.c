@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <math.h>
 
 double dAdd(double a, double b);
 double dSubtract(double a, double b);

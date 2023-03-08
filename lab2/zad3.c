@@ -5,7 +5,7 @@ double pierw5(double x);
 
 int main(int argc, char const *argv[])
 {
-    double x[9] = {-2, -1.5, -1, -0.5, 0, 0.5, 1, 1.5, 2}; 
+    double x[9] = {-32, -64, -1, -0.5, 0, 0.5, 1, 64, 32}; 
     double y[9];                                           
     int i;                                                 
     for (i = 0; i < 9; i++)
