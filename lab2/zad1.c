@@ -8,8 +8,8 @@ double dDivide(double a, double b);
 int main()
 {
 
-    double x1 = 2.5, y1 = 1.5;
-    double x2 = 4.0, y2 = 2.0;
+    double x1 = 1.57, y1 = 3.58;
+    double x2 = 9.21, y2 = 6.85;
 
     printf("dAdd(%.2lf, %.2lf) = %.2lf\n", x1, y1, dAdd(x1, y1));
     printf("dAdd(%.2lf, %.2lf) = %.2lf\n", x2, y2, dAdd(x2, y2));
