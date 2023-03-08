@@ -22,6 +22,5 @@ float silnia(int n)
 
 float newton(int n, int k)
 {
-    // Wykorzystanie funkcji silnia
     return silnia(n) / (silnia(k) * silnia(n - k));
 }
