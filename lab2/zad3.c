@@ -24,6 +24,7 @@ int main(int argc, char const *argv[])
             printf("y = %.2lf\n", y[i]);
         }
     }
+    //Ponowne podniesienie do 5-tej potęgi
     for(i=0;i<9;i++){
       z[i] = pow(y[i],5);
     }
