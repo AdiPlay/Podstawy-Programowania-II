@@ -9,7 +9,7 @@ int main(int argc, char const *argv[]){
 				printf("Podaj elementy a [%d] [%d] = ",i,j);
 				k=scanf("%lf",&a[i][j]);
 				if(k==0)
-					printf("Blad formatu");
+					printf("Blad formatu \n");
 				
 				fflush(stdin);
 				
