@@ -51,24 +51,24 @@ int main()
 
 double dAdd(double a, double b)
 {
-    printf("%.2lf + %.2lf = %.2lf\n", a, b, a + b);
+    printf("%lf + %lf = %lf\n", a, b, a + b);
     return a + b;
 }
 
 double dSubtract(double a, double b)
 {
-    printf("%.2lf - %.2lf = %.2lf\n", a, b, a - b);
+    printf("%lf - %lf = %lf\n", a, b, a - b);
     return a - b;
 }
 
 double dMultiply(double a, double b)
 {
-    printf("%.2lf * %.2lf = %.2lf\n", a, b, a * b);
+    printf("%lf * %lf = %lf\n", a, b, a * b);
     return a * b;
 }
 
 double dDivide(double a, double b)
 {
-    printf("%.2lf / %.2lf = %.2lf\n", a, b, a / b);
+    printf("%lf / %lf = %lf\n", a, b, a / b);
     return a / b;
 }
