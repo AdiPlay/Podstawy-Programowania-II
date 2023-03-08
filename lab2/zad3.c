@@ -7,7 +7,8 @@ int main(int argc, char const *argv[])
 {
   //double x[9]={-2, -1.5,-1, -0.5,0,0.5,1,1.5,2}
     double x[9] = {-32, -243, -1024, -3125, 0, 3125, 1024, 243, 32}; 
-    double y[9];                                           
+    double y[9];  
+    double z[9];                                         
     int i;                                                 
     for (i = 0; i < 9; i++)
     {
@@ -23,6 +24,14 @@ int main(int argc, char const *argv[])
             printf("y = %.2lf\n", y[i]);
         }
     }
+    for(i=0;i<9;i++){
+      z[i] = pow(y[i],5);
+    }
+    printf("\n");
+    for(i=0;i<9;i++){
+      printf("z = %.2lf\n", z[i]);
+    }
+
     return 0;
 }
 
