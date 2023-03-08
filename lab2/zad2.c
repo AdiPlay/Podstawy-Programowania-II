@@ -5,7 +5,7 @@ float newton();
 
 int main(int argc, char const *argv[])
 {
-    printf("Silnia: %.2f\n", silnia(5));
+    printf("Silnia: %.2f\n", silnia(6));
     printf("Symbol Newtona: %.2f\n", newton(5,3));
     return 0;
 }
