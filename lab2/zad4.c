@@ -20,6 +20,7 @@ int main()
             printf("Zakończenie programu.\n");
             break;
         }
+        printf("\n");
         printf("Wprowadź drugą liczbę: ");
         scanf("%lf", &b);
 
