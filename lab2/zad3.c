@@ -14,6 +14,7 @@ int main(int argc, char const *argv[])
     {
         y[i] = pierw5(x[i]); // obliczenie pierwiastka z x[i] i zapisanie w y[i]
     }
+    printf("Liczby spierwiastkowane \n");
     for (i = 0; i < 9; i++)
     {
         if(y[i]<0){
@@ -28,7 +29,7 @@ int main(int argc, char const *argv[])
     for(i=0;i<9;i++){
       z[i] = pow(y[i],5);
     }
-    printf("\n");
+    printf("Liczby Podniesione do 5-tej potegi\n");
     for(i=0;i<9;i++){
       printf("z = %.2lf\n", z[i]);
     }

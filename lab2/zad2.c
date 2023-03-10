@@ -6,7 +6,7 @@ double newton();
 int main(int argc, char const *argv[])
 {
     printf("Silnia: %.2lf\n", silnia(6));
-    printf("Symbol Newtona: %.2lf\n", newton(3,2));
+    printf("Symbol Newtona: %.2lf\n", newton(3, 2));
     return 0;
 }
 
