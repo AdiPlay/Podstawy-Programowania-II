@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <math.h>
 
+#define ESC 27
+
 double dAdd(double a, double b);
 double dSubtract(double a, double b);
 double dMultiply(double a, double b);
@@ -9,23 +11,48 @@ double dDivide(double a, double b);
 int main()
 {
     double a, b;
-    char kod;
-    
+    char ch;
+    int k;
+
     do
     {
-        printf("Wprowadź pierwszą liczbę: ");
-        scanf("%lf", &a);
-        printf("Wprowadź operator (+, -, *, /): ");        
-        kod=getch();
-        if(kod==27){
-            printf("Zakończenie programu.\n");
-            break;
-        }
-        printf("\n");
-        printf("Wprowadź drugą liczbę: ");
-        scanf("%lf", &b);
 
-        switch (kod)
+        printf("Wprowadź pierwszą liczbę: ");
+        k = scanf("%lf", &a);
+        if (k == 0)
+            printf("Nieprawidłowy format.\n");
+        fflush(stdin);
+    } while (k == 0);
+    do
+    {
+        printf("Wprowadź operator (+, -, *, /): \n");
+        ch = getch();
+        if (ch == 27)
+        {
+            printf("Zakończenie programu.\n");
+            return 0;
+        }
+
+    } while (ch != '+' && ch != '-' && ch != '*' && ch != '/');
+    printf("\n");
+    do
+    {
+        printf("Wprowadź drugą liczbę: ");
+        k = scanf("%lf", &b);
+        if (k == 0)
+            printf("Nieprawidłowy format.\n");
+        fflush(stdin);
+    } while (k == 0);
+
+    if (ch == 27)
+    {
+        printf("Zakończenie programu.\n");
+        return 0;
+    }
+
+    do
+    {
+        switch (ch)
         {
         case '+':
             dAdd(a, b);
@@ -41,12 +68,19 @@ int main()
                 printf("Nie można dzielić przez zero.\n");
             else
                 dDivide(a, b);
-            break;      
+            break;
         default:
             printf("Nieprawidłowy operator.\n");
         }
         getchar();
-    } while (kod != 27);
+        fflush(stdin);
+    } while (ch != 27);
+    ch = getch();
+    if (ch == 27)
+    {
+        printf("Zakończenie programu.\n");
+        return 0;
+    }
     return 0;
 }
 
