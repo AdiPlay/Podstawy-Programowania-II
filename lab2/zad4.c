@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <math.h>
+#include <locale.h>
 
 #define ESC 27
 
@@ -10,6 +11,7 @@ double dDivide(double a, double b);
 
 int main()
 {
+    setlocale(LC_CTYPE, "Polish");
     double a, b;
     char ch;
     int k;

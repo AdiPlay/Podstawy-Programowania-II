@@ -11,14 +11,14 @@ int main(int argc, char const *argv[])
     // b) przypisać zmiennym wskaźnikowym px i py wskaźniki do x i y
     px = &x;
     py = &y;
-    // wczytać z klawiatury zmienne x i y przy użyciu wskaźników, następnie je przy użyciu wskaźników
+    // c)wczytać z klawiatury zmienne x i y przy użyciu wskaźników, następnie je przy użyciu wskaźników
     printf("Podaj dwie liczby: \n");
     scanf("%d", px);
     scanf("%lf", py);
     printf("Wypisanie zmiennych: \n");
     printf("%d\n", *px);
     printf("%lf\n", *py);
-
+    // d)
     double tab[5];
     double *pa;
     pa = tab;
