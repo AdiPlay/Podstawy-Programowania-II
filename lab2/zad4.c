@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <math.h>
-
 #define ESC 27
 
 double dAdd(double a, double b);
