@@ -74,10 +74,12 @@ int main()
         default:
             printf("Nieprawidłowy operator.\n");
         }
+        ch = getch();
         getchar();
         fflush(stdin);
+        
     } while (ch != 27);
-    ch = getch();
+    
     if (ch == 27)
     {
         printf("Zakończenie programu.\n");
