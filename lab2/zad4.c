@@ -9,7 +9,7 @@ double dDivide(double a, double b);
 
 int main()
 {
-    
+
     double a, b;
     char ch;
     int k;
@@ -75,9 +75,9 @@ int main()
         ch = getch();
         getchar();
         fflush(stdin);
-        
+
     } while (ch != 27);
-    
+
     if (ch == 27)
     {
         printf("Zakończenie programu.\n");
