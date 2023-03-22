@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 double average(double tab[], int n);
 double max(double tab[], int n);
@@ -53,11 +54,12 @@ double max(double tab[], int n)
 void wczyt1D(double tab[], int n)
 {
     int i, k;
+    srand(time(NULL));
     for (i = 0; i < n; i++)
     {
         do
         {
-            printf("Podaj %d liczbę: ", i + 1);
+            printf("[%d] element: ", i + 1);
             k = scanf("%lf", &tab[i]);
             if (k == 0)
             {
@@ -65,5 +67,7 @@ void wczyt1D(double tab[], int n)
             }
             fflush(stdin);
         } while (k == 0);
+        //wprowadzenie liczb losowych
+        //tab[i] = rand() % 100;
     }
 }

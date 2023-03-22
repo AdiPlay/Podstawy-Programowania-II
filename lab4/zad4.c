@@ -41,14 +41,18 @@ double sredniaind(double tab[], int start, int end, double *min) {
 
 void wczyt1D(double tab[], int n)
 {
-    int i;
+    int i, k;
     for (i = 0; i < n; i++)
     {
-        printf("Podaj element [%d]: ", i);
-        if (scanf("%lf", &tab[i]) != 1)
+        do
         {
-            printf("Błąd: Niepoprawny format liczby!\n");
-            return;
-        }
+            printf("Podaj %d element: ", i + 1);
+            k = scanf("%lf", &tab[i]);
+            if (k == 0)
+            {
+                printf("Błędne dane, wprowadź ponownie: \n");
+            }
+            fflush(stdin);
+        } while (k == 0);
     }
 }
