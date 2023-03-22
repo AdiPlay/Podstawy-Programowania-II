@@ -38,14 +38,14 @@ double sinusapprox(double x, int n)
     int i;
     for (i = 0; i < n; i++)
     {
-        double potega = pow(x, 2 * i + 1);
+        double licznik = pow(x, 2 * i + 1);
         double dzielnik = 1.0;
         int j;
         for (j = 1; j <= 2 * i + 1; j++)
         {
             dzielnik *= j;
         }
-        double skladnik = potega / dzielnik;
+        double skladnik = licznik / dzielnik;
         if (i % 2 == 1)
         {
             skladnik = -skladnik;

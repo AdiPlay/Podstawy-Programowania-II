@@ -27,7 +27,7 @@ void wczytTab(int *ptab, int n)
     {
         // printf("Podaj element [%d]: ", i);
         // scanf("%d", ptab + i);
-        
+
         *(ptab + i) = rand() % 100;
     }
 }
@@ -38,8 +38,6 @@ void minTab(int *pi, int n, int *pmin)
     for (int i = 0; i < n; i++)
     {
         if (*(pi + i) < *pmin)
-        {
             *pmin = *(pi + i);
-        }
     }
 }
