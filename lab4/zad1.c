@@ -28,15 +28,14 @@ void wczyt1D(double tab[], int n)
     {
         do
         {
+            printf("Podaj %d liczbę: ", i + 1);
             k = scanf("%lf", &tab[i]);
             if (k == 0)
             {
                 printf("Błędne dane, wprowadź ponownie: ");
-                while (getchar() != ' '
-
-                )
-                    ;
+                
             }
+            fflush(stdin);
         }while(k == 0);
     }
 }

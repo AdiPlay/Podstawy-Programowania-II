@@ -4,7 +4,6 @@ double average(double tab[], int n);
 double max(double tab[], int n);
 void wczyt1D(double tab[], int n);
 
-
 int main()
 {
     double tab[6];
@@ -53,14 +52,18 @@ double max(double tab[], int n)
 
 void wczyt1D(double tab[], int n)
 {
-    int i;
+    int i, k;
     for (i = 0; i < n; i++)
     {
-        printf("Podaj element [%d]: ", i);
-        if (scanf("%lf", &tab[i]) != 1)
+        do
         {
-            printf("Błąd: Niepoprawny format liczby!\n");
-            return;
-        }
+            printf("Podaj %d liczbę: ", i + 1);
+            k = scanf("%lf", &tab[i]);
+            if (k == 0)
+            {
+                printf("Błędne dane, wprowadź ponownie: ");
+            }
+            fflush(stdin);
+        } while (k == 0);
     }
 }

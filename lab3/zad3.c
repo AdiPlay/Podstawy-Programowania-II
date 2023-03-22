@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 void wczytTab(int *ptab, int n);
 void minTab(int *pi, int n, int *pmin);
@@ -20,11 +21,14 @@ int main(int argc, char const *argv[])
 
 void wczytTab(int *ptab, int n)
 {
-    printf_s("Podaj %d liczb do tablicy: \n", n);
+    srand(time(NULL));
+    printf("Podaj %d liczb do tablicy: \n", n);
     for (int i = 0; i < n; i++)
     {
-        printf_s("Podaj element [%d]: ", i);
-        scanf("%d", ptab + i);
+        // printf("Podaj element [%d]: ", i);
+        // scanf("%d", ptab + i);
+        
+        *(ptab + i) = rand() % 100;
     }
 }
 
