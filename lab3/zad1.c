@@ -25,6 +25,7 @@ int main(int argc, char const *argv[])
     printf("Wpisz liczby do tablicy: \n");
     for (int i = 0; i < 5; i++)
     {
+        printf("Podaj %d element: ", i + 1);
         scanf("%lf", pa + i);
     }
     printf("Drukowanie tablicy: \n");
