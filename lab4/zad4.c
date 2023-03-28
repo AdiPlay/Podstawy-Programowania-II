@@ -50,7 +50,7 @@ void wczyt1D(double tab[], int n)
             k = scanf("%lf", &tab[i]);
             if (k == 0)
             {
-                printf("Błędne dane, wprowadź ponownie: \n");
+                printf("Błąd formatu, spróbuj ponownie: \n");
             }
             fflush(stdin);
         } while (k == 0);
