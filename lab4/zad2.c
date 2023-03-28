@@ -37,8 +37,7 @@ double average(double tab[], int n)
     return suma / n;
 }
 
-double max(double tab[], int n)
-{
+double max(double tab[], int n){
     double maksimum = tab[0];
     int i;
     for (i = 1; i < n; i++)
@@ -63,7 +62,7 @@ void wczyt1D(double tab[], int n)
             k = scanf("%lf", &tab[i]);
             if (k == 0)
             {
-                printf("Błędne dane, wprowadź ponownie: ");
+                printf("Błąd formatu, spróbuj ponownie: ");
             }
             fflush(stdin);
         } while (k == 0);
