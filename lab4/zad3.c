@@ -4,7 +4,6 @@
 double sinusapprox(double x, int n);
 double silnia(int n);
 
-
 int main()
 {
     double x;
@@ -14,14 +13,12 @@ int main()
         printf("Błąd: Niepoprawny format liczby!\n");
         return 1;
     }
-
     double sinusXn[3];
     int n;
     for (n = 4; n <= 6; n++)
     {
         sinusXn[n - 4] = sinusapprox(x, n);
     }
-
     printf("sin(x) dla x = %g:\n", x);
     printf("z funkcji math.h: %g\n", sin(x));
     printf("z funkcji sinusapprox:\n");
@@ -30,7 +27,6 @@ int main()
     {
         printf("n = %d: %g\n", i + 4, sinusXn[i]);
     }
-
     return 0;
 }
 
@@ -49,8 +45,8 @@ double sinusapprox(double x, int n)
     for (i = 0; i < n; i++)
     {
         double licznik = pow(x, 2 * i + 1);
-        double dzielnik = silnia(2 * i + 1);
-        double skladnik = licznik / dzielnik;
+        double mianownik = silnia(2 * i + 1);
+        double skladnik = licznik / mianownik;
         if (i % 2 == 1)
         {
             skladnik = -skladnik;
@@ -59,5 +55,3 @@ double sinusapprox(double x, int n)
     }
     return wynik;
 }
-
-
