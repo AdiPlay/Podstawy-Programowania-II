@@ -1,55 +1,54 @@
 #include <stdio.h>
+#include <stdlib.h>
 
-double average(double tab[], int n);
-double sredniaind(double tab[], int start, int end, double *min);
-void wczyt1D(double tab[], int n);
+double srednia(double x[], int n);
+double sredniaind(double x[], int poczatek, int koniec, double *min);
+void wczyt1D(double x[], int n);
 
 int main() {
     double w[5];
-    wczyt1D(w, 5);  // wczytanie tablicy
-    double avg = average(w, 5);  // obliczenie średniej arytmetycznej
+    int poczatek, koniec;
+    wczyt1D(w, 5); 
     double min;
-    double avg_range = sredniaind(w, 1, 3, &min);  // obliczenie średniej arytmetycznej w zakresie 1-3 i wartości minimalnej
-    printf("Średnia arytmetyczna elementów całej tablicy: %.2f\n", avg);
-    printf("Średnia arytmetyczna elementów w zakresie 1-3: %.2f\n", avg_range);
-    printf("Minimalna wartość w zakresie 1-3: %.2f\n", min);
+    printf("Podaj zakres 0-4: ");
+    printf("\nPodaj poczatek: "); 
+    scanf("%d", &poczatek);
+    printf("Podaj koniec: ");
+    scanf("%d", &koniec);
+    printf("Średnia arytmetyczna całej tablicy: %.2f\n", srednia(w, 5));
+    printf("Średnia arytmetyczna w zakresie %d-%d: %.2f\n", poczatek, koniec, sredniaind(w, poczatek, koniec, &min));
+    printf("Minimalna wartość w zakresie %d-%d: %.2f\n", poczatek, koniec, min);
     return 0;
 }
 
-// Funkcja obliczająca średnią arytmetyczną elementów tablicy
-double average(double tab[], int n) {
+double srednia(double x[], int n) {
     double sum = 0.0;
     for (int i = 0; i < n; i++) {
-        sum += tab[i];
+        sum += x[i];
     }
     return sum / n;
 }
 
-// Funkcja obliczająca średnią arytmetyczną elementów tablicy w wybranym zakresie indeksów
-// oraz wartość minimalną w tym zakresie (zapisywaną do zmiennej wskazywanej przez wskaźnik min)
-double sredniaind(double tab[], int start, int end, double *min) {
+double sredniaind(double x[], int poczatek, int koniec, double *min) {
     double sum = 0.0;
-    *min = tab[start];  // zakładamy, że wartość minimalna to pierwszy element w zakresie
-    for (int i = start; i <= end; i++) {
-        sum += tab[i];
-        if (tab[i] < *min) {
-            *min = tab[i];
+    *min = x[poczatek];  
+    for (int i = poczatek; i <= koniec; i++) {
+        sum += x[i];
+        if (x[i] < *min) {
+            *min = x[i];
         }
     }
-    return sum / (end - start + 1);
+    return sum / (koniec - poczatek + 1);
 }
 
-void wczyt1D(double tab[], int n)
-{
+void wczyt1D(double x[], int n){
     int i, k;
-    for (i = 0; i < n; i++)
-    {
-        do
-        {
-            printf("Podaj %d element: ", i + 1);
-            k = scanf("%lf", &tab[i]);
-            if (k == 0)
-            {
+    //srand(time(NULL));
+    for (i = 0; i < n; i++){
+        do{
+            printf("Podaj %d element: ", i);
+            k = scanf("%lf", &x[i]);
+            if (k == 0){
                 printf("Błąd formatu, spróbuj ponownie: \n");
             }
             fflush(stdin);
