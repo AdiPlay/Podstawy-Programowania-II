@@ -15,8 +15,8 @@ int main() {
     printf("Podaj koniec: ");
     scanf("%d", &koniec);
     printf("Średnia arytmetyczna całej tablicy: %.2f\n", srednia(w, 5));
-    printf("Średnia arytmetyczna w zakresie %d-%d: %.2f\n",poczatek,koniec ,sredniaind(w, poczatek, koniec, &min));
-    printf("Minimalna wartość w zakresie %d-%d: %.2f\n",poczatek,koniec, min);
+    printf("Średnia arytmetyczna w zakresie %d-%d: %.2f\n", poczatek, koniec, sredniaind(w, poczatek, koniec, &min));
+    printf("Minimalna wartość w zakresie %d-%d: %.2f\n", poczatek, koniec, min);
     return 0;
 }
 
@@ -44,7 +44,7 @@ void wczyt1D(double x[], int n){
     int i, k;
     for (i = 0; i < n; i++){
         do{
-            printf("Podaj %d element: ", i + 1);
+            printf("Podaj %d element: ", i);
             k = scanf("%lf", &x[i]);
             if (k == 0){
                 printf("Błąd formatu, spróbuj ponownie: \n");
