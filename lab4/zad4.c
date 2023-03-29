@@ -24,7 +24,6 @@ double average(double tab[], int n) {
     return sum / n;
 }
 
-
 double sredniaind(double tab[], int start, int end, double *min) {
     double sum = 0.0;
     *min = tab[start];  
