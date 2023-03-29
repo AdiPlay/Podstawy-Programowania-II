@@ -34,10 +34,7 @@ double silnia(int n){
 }
 
 double sinusapprox(double x, int n){
-    double wynik = 0.0;
-    double licznik;
-    double mianownik;
-    double suma = 0.0;
+    double wynik = 0.0, licznik, mianownik, suma = 0.0;
     int i;
     for (i = 0; i < n; i++){
         licznik = pow(x, 2 * i + 1);

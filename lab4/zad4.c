@@ -1,8 +1,8 @@
 #include <stdio.h>
 
-double average(double tab[], int n);
-double sredniaind(double tab[], int start, int end, double *min);
-void wczyt1D(double tab[], int n);
+double average(double x[], int n);
+double sredniaind(double x[], int poczatek, int koniec, double *min);
+void wczyt1D(double x[], int n);
 
 int main() {
     double w[5];
@@ -10,43 +10,39 @@ int main() {
     double avg = average(w, 5);  
     double min;
     double avg_range = sredniaind(w, 1, 3, &min);  
-    printf("Średnia arytmetyczna elementów całej tablicy: %.2f\n", avg);
-    printf("Średnia arytmetyczna elementów w zakresie 1-3: %.2f\n", avg_range);
+    printf("Średnia arytmetyczna całej tablicy: %.2f\n", avg);
+    printf("Średnia arytmetyczna w zakresie 1-3: %.2f\n", avg_range);
     printf("Minimalna wartość w zakresie 1-3: %.2f\n", min);
     return 0;
 }
 
-double average(double tab[], int n) {
+double average(double x[], int n) {
     double sum = 0.0;
     for (int i = 0; i < n; i++) {
-        sum += tab[i];
+        sum += x[i];
     }
     return sum / n;
 }
 
-double sredniaind(double tab[], int start, int end, double *min) {
+double sredniaind(double x[], int poczatek, int koniec, double *min) {
     double sum = 0.0;
-    *min = tab[start];  
-    for (int i = start; i <= end; i++) {
-        sum += tab[i];
-        if (tab[i] < *min) {
-            *min = tab[i];
+    *min = x[poczatek];  
+    for (int i = poczatek; i <= koniec; i++) {
+        sum += x[i];
+        if (x[i] < *min) {
+            *min = x[i];
         }
     }
-    return sum / (end - start + 1);
+    return sum / (koniec - poczatek + 1);
 }
 
-void wczyt1D(double tab[], int n)
-{
+void wczyt1D(double x[], int n){
     int i, k;
-    for (i = 0; i < n; i++)
-    {
-        do
-        {
+    for (i = 0; i < n; i++){
+        do{
             printf("Podaj %d element: ", i + 1);
-            k = scanf("%lf", &tab[i]);
-            if (k == 0)
-            {
+            k = scanf("%lf", &x[i]);
+            if (k == 0){
                 printf("Błąd formatu, spróbuj ponownie: \n");
             }
             fflush(stdin);
