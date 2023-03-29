@@ -2,7 +2,7 @@
 
 #define N 5
 
-void wczyt1DI(int n, int tab[]);  // wczytanie tablicy
+void wczyt1D(int n, int tab[]);  // wczytanie tablicy
 void oblicz(int n, int tab[], int *suma_dodatnie, int *ilosc_ujemne);  // obliczenie sumy dodatnich i ilości ujemnych
 
 
@@ -11,7 +11,7 @@ int main()
     int xx[N];
     int suma, ilosc;
 
-    wczyt1DI(N, xx);
+    wczyt1D(N, xx);
     oblicz(N, xx, &suma, &ilosc);
 
     printf("Suma dodatnich: %d\n", suma);
@@ -20,7 +20,7 @@ int main()
     return 0;
 }
 
-void wczyt1DI(int n, int tab[])
+void wczyt1D(int n, int tab[])
 {
     for (int i = 0; i < n; i++)
     {

@@ -1,22 +1,26 @@
 #include <stdio.h>
 
-double average(double x[], int n);
+double srednia(double x[], int n);
 double sredniaind(double x[], int poczatek, int koniec, double *min);
 void wczyt1D(double x[], int n);
 
 int main() {
     double w[5];
+    int poczatek, koniec;
     wczyt1D(w, 5); 
-    double avg = average(w, 5);  
     double min;
-    double avg_range = sredniaind(w, 1, 3, &min);  
-    printf("Średnia arytmetyczna całej tablicy: %.2f\n", avg);
-    printf("Średnia arytmetyczna w zakresie 1-3: %.2f\n", avg_range);
-    printf("Minimalna wartość w zakresie 1-3: %.2f\n", min);
+    printf("Podaj zakres 0-4: ");
+    printf("\nPodaj poczatek: "); 
+    scanf("%d", &poczatek);
+    printf("Podaj koniec: ");
+    scanf("%d", &koniec);
+    printf("Średnia arytmetyczna całej tablicy: %.2f\n", srednia(w, 5));
+    printf("Średnia arytmetyczna w zakresie %d-%d: %.2f\n",poczatek,koniec ,sredniaind(w, poczatek, koniec, &min));
+    printf("Minimalna wartość w zakresie %d-%d: %.2f\n",poczatek,koniec, min);
     return 0;
 }
 
-double average(double x[], int n) {
+double srednia(double x[], int n) {
     double sum = 0.0;
     for (int i = 0; i < n; i++) {
         sum += x[i];
