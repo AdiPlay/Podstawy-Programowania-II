@@ -2,6 +2,8 @@
 #include <math.h>
 
 double sinusapprox(double x, int n);
+double silnia(int n);
+
 
 int main()
 {
@@ -32,6 +34,14 @@ int main()
     return 0;
 }
 
+double silnia(int n)
+{
+    if (n == 0 || n == 1)
+        return 1;
+    else
+        return n * silnia(n - 1);
+}
+
 double sinusapprox(double x, int n)
 {
     double wynik = 0.0;
@@ -39,12 +49,7 @@ double sinusapprox(double x, int n)
     for (i = 0; i < n; i++)
     {
         double licznik = pow(x, 2 * i + 1);
-        double dzielnik = 1.0;
-        int j;
-        for (j = 1; j <= 2 * i + 1; j++)
-        {
-            dzielnik *= j;
-        }
+        double dzielnik = silnia(2 * i + 1);
         double skladnik = licznik / dzielnik;
         if (i % 2 == 1)
         {
@@ -54,3 +59,5 @@ double sinusapprox(double x, int n)
     }
     return wynik;
 }
+
+
