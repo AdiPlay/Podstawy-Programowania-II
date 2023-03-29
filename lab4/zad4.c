@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 double srednia(double x[], int n);
 double sredniaind(double x[], int poczatek, int koniec, double *min);
@@ -42,6 +43,7 @@ double sredniaind(double x[], int poczatek, int koniec, double *min) {
 
 void wczyt1D(double x[], int n){
     int i, k;
+    //srand(time(NULL));
     for (i = 0; i < n; i++){
         do{
             printf("Podaj %d element: ", i);

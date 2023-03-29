@@ -11,8 +11,8 @@ int main(){
     int suma, ilosc;
     wczyt1D(N, xx);
     oblicz(N, xx, &suma, &ilosc);
-    printf("Suma dodatnich: %d\n", suma);
-    printf("Ilosc ujemnych: %d\n", ilosc);
+    printf("Suma liczb dodatnich: %d\n", suma);
+    printf("Ilosc liczb ujemnych: %d\n", ilosc);
     return 0;
 }
 
