@@ -5,12 +5,13 @@ void zamien(double *pd1, double *pd2);
 
 int main(int argc, char const *argv[])
 {
+    //Dla lepszych testów używam zmiennych losowych
     srand(time(NULL));
     double x = rand() % 100;
     double y = rand() % 100;
-    printf("Przed zamianą: a = %.2lf, b = %.2lf\n", x, y);
+    printf("Przed zamianą: x = %.2lf, y = %.2lf\n", x, y);
     zamien(&x, &y);
-    printf("Po zamianie: a = %.2lf, b = %.2lf\n", x, y);
+    printf("Po zamianie: x = %.2lf, y = %.2lf\n", x, y);
     return 0;
 }
 
