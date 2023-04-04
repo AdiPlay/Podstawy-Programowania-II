@@ -16,6 +16,7 @@ int main(int argc, char const *argv[])
     return 0;
 }
 
+
 void wczyt1D(double tab[], int n, char nazwa)
 {
     int i;

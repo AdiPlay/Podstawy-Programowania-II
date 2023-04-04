@@ -13,8 +13,10 @@ int main(int argc, char const *argv[])
     double x[2][M];
     printf("Podaj n: ");
     scanf("%d", &n);
+    printf("Metoda zwykła:\n");
     wczyt2D(n, x);
     druk2D(n, x);
+    printf("Metoda C99:\n");
     wczyt2DC99(n, M, x);
     druk2DC99(n, M, x);
 

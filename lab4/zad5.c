@@ -2,8 +2,8 @@
 
 #define N 5
 
-void wczyt1D(int n, int tab[]);  // wczytanie tablicy
-void oblicz(int n, int tab[], int *suma_dodatnie, int *ilosc_ujemne);  // obliczenie sumy dodatnich i ilości ujemnych
+void wczyt1D(int n, int tab[]);  
+void oblicz(int n, int tab[], int *suma_dodatnie, int *ilosc_ujemne); 
 
 
 int main(){
