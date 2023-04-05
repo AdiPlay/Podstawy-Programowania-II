@@ -37,9 +37,9 @@ void wczyt2D(int n, double x[][M])
             {
                 k = scanf("%lf", &x[i][j]);
                 if (k == 0)
-                
+
                     printf("Błędne dane, wprowadź ponownie: ");
-                
+
                 fflush(stdin);
             } while (k == 0);
         }
@@ -59,7 +59,7 @@ void druk2D(int n, double x[][M])
     }
 }
 
-void wczyt2DC99(int n, int m, double x[M][m])
+void wczyt2DC99(int n, int m, double x[n][m])
 {
     int i, j, k;
     for (i = 0; i < M; i++)
@@ -79,14 +79,14 @@ void wczyt2DC99(int n, int m, double x[M][m])
     }
 }
 
-void druk2DC99(int n, int m, double x[M][m])
+void druk2DC99(int n, int m, double x[n][m])
 {
     int i, j;
     for (i = 0; i < M; i++)
     {
         for (j = 0; j < m; j++)
         {
-            printf("%.2lf\t", x[i][j]);
+            printf("[%.2lf]\t", x[i][j]);
         }
         printf("\n");
     }
