@@ -10,13 +10,13 @@ double sarrus(double x[][3]);
 
 int main(int argc, char const *argv[])
 {
-    double x[3][3];
+    double x[3][3], temp;
     srand(time(NULL));
     for (int i = 0; i < 3; i++)
     {
         for (int j = 0; j < 3; j++)
         {
-            x[i][j] = rand() % 10;
+            x[i][j] = rand()%10;
         }
     }
     printf("Macierz:\n");
@@ -28,6 +28,7 @@ int main(int argc, char const *argv[])
         }
         printf("\n");
     }
+    
     printf("Macierz transponowana:\n");
     transpose(3, x);
     for (int i = 0; i < 3; i++)
@@ -39,6 +40,26 @@ int main(int argc, char const *argv[])
         printf("\n");
     }
     printf("Wyznacznik macierzy: %.2lf\n", sarrus(x));
+    zamienKK(3, 3, x, 0, 2);
+    printf("Macierz po zamianie 1 i 3 kolumny:\n");
+    for (int i = 0; i < 3; i++)
+    {
+        for (int j = 0; j < 3; j++)
+        {
+            printf("%.2lf\t", x[i][j]);
+        }
+        printf("\n");
+    }
+    zamienWW(3, 3, x, 0, 2);
+    printf("Macierz po zamianie 1 i 3 wiersza:\n");
+    for (int i = 0; i < 3; i++)
+    {
+        for (int j = 0; j < 3; j++)
+        {
+            printf("%.2lf\t", x[i][j]);
+        }
+        printf("\n");
+    }
     
 
 
