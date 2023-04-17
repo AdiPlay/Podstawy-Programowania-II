@@ -1,7 +1,5 @@
 #include <stdio.h>
-
 void minmax2D(int n, double x[n][n], double wyniki[]);
-
 int main()
 {
     double x[4][4] = {{1.0, 2.0, 3.0, 4.0},
@@ -26,7 +24,6 @@ int main()
 
     return 0;
 }
-
 void minmax2D(int n, double x[n][n], double wyniki[])
 {
     double min = x[0][0];

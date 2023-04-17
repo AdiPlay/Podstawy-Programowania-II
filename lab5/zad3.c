@@ -1,13 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-
 void zamienKK(int n, int m, double x[][m], int nrKol1, int nrKol2);
 void zamienWW(int n, int m, double x[][m], int nrWiersza1, int nrWiersza2);
 void transpose(int n, double x[][n]);
 double sarrus(double x[][3]);
-
-
 int main(int argc, char const *argv[])
 {
     double x[3][3], temp;
@@ -27,8 +24,7 @@ int main(int argc, char const *argv[])
             printf("%.2lf\t", x[i][j]);
         }
         printf("\n");
-    }
-    
+    }  
     printf("Macierz transponowana:\n");
     transpose(3, x);
     for (int i = 0; i < 3; i++)
@@ -60,12 +56,8 @@ int main(int argc, char const *argv[])
         }
         printf("\n");
     }
-    
-
-
     return 0;
 }
-
 void zamienKK(int n, int m, double x[][m], int nrKol1, int nrKol2)
 {
     double temp;
@@ -76,7 +68,6 @@ void zamienKK(int n, int m, double x[][m], int nrKol1, int nrKol2)
         x[i][nrKol2] = temp;
     }
 }
-
 void zamienWW(int n, int m, double x[][m], int nrWiersza1, int nrWiersza2)
 {
     double temp;
@@ -87,7 +78,6 @@ void zamienWW(int n, int m, double x[][m], int nrWiersza1, int nrWiersza2)
         x[nrWiersza2][j] = temp;
     }
 }
-
 void transpose(int n, double x[][n])
 {
     double temp;
@@ -101,7 +91,6 @@ void transpose(int n, double x[][n])
         }
     }
 }
-
 double sarrus(double x[][3])
 {
     double wynik = 0.0;

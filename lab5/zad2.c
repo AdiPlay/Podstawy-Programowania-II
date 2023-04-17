@@ -1,7 +1,5 @@
 #include <stdio.h>
-
 void sumWKP(int n, int m, int x[n][m], int nrWiersza, int nrKolumny, double wyniki[]);
-
 int main()
 {
     int tab[3][3] = {{5, 4, 12}, {10, 15, 70}, {2, 20, 77}};
@@ -28,7 +26,6 @@ int main()
 
     return 0;
 }
-
 void sumWKP(int n, int m, int x[n][m], int nrWiersza, int nrKolumny, double wyniki[])
 {
     int i, j;
