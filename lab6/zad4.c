@@ -1,44 +1,34 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-double *wczyt1Dyn(int n);
+double* wczyt1Dyn(int n);
 
-int main()
-{
-    int n, i;
-    double *tab;
-
-    printf("Podaj liczbe elementow tablicy: ");
-    scanf("%d", &n);
-
-    tab = wczyt1Dyn(n); /* wczytanie tablicy */
-
-    printf("Wczytana tablica:\n");
-    for (i = 0; i < n; i++)
-    {
-        printf("%lf ", tab[i]); /* wyświetlenie tablicy */
+int main(){
+    int n = 5;
+    double *tablica;
+    tablica = wczyt1Dyn(n);
+    for (int i=0; i<n; i++){
+        printf("%lf\n", *(tablica+i));
     }
-    printf("\n");
-
-    free(tab); /* zwolnienie pamięci */
-
+    free(tablica);
     return 0;
 }
 
-double *wczyt1Dyn(int n)
-{
-    int i;
+double* wczyt1Dyn(int n){
+    int i,k;
     double *px;
-    px = (double *)malloc(n * sizeof(double)); /* alokacja pamięci */
-    if (px == NULL)
-    {
-        printf("Blad alokacji pamieci\n");
-        exit(1); /* zakończenie programu z kodem błędu */
+    px=(double*) malloc(n*sizeof(double));
+    for (i=0;i<n;i++){
+       do{
+            printf("Podaj %d element: ", i + 1);
+            k = scanf("%lf", px++);
+            if (k == 0)
+            {
+                printf("Błędne dane, wprowadź ponownie: \n");
+            }
+            fflush(stdin);
+        } while (k == 0);
     }
-    for (i = 0; i < n; i++)
-    {
-        printf("\n Podaj element[%d]=", i);
-        scanf("%lf", px + i); /* wczytanie elementu */
-    }
-    return px; /* zwrócenie wskaźnika do alokowanej tablicy */
+    px=px-n;
+    return px;
 }

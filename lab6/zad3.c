@@ -1,25 +1,34 @@
 #include <stdio.h>
 #include <stdlib.h>
-int main(int argc, char const *argv[])
+int main()
 {
-
-    int *pa, i;
+    int *pa, i, minParzysta = -1, k;
     pa = (int *)calloc(5, sizeof(int));
-    // zastosować przy wczytywaniu tablicy sposób 2
-    for (i = 0; i < 5; i++)
-    {
-        printf("\n Podaj element [%d]=", i);
-        scanf("%d", pa++); // wczytywanie sposób 1
-        // scanf( "%d",pa+i); //wczytywanie sposób 2
-        // scanf( "%d",&pa[i]);//wczytywanie sposób 3
+    for (i = 0; i < 5; i++){
+        do{
+            printf("Podaj %d element: ", i + 1);
+            k = scanf("%d", &pa[i]);
+            if (k == 0)
+            {
+                printf("Błędne dane, wprowadź ponownie: \n");
+            }
+            fflush(stdin);
+        } while (k == 0);
     }
-    // Drukowanie użyć sposobu 1 lub 2
-    // Jeśli sposób 1, to trzeba cofnąć wskaźnik pa=pa-5;
-    for (i = 0; i < 5; i++)
-    {
-        printf("\n %d", *pa++); // drukowanie sposób 1
-    } 
-    // printf("\n %d", *(pa+i));// drukowanie sposób 2
-    // printf("\n %d", pa[i]);// drukowanie sposób 3
+    for (i = 0; i < 5; i++){
+        if (pa[i] % 2 == 0 && (minParzysta == -1 || pa[i] < minParzysta))
+        {
+            minParzysta = pa[i];
+        }
+    }
+    if (minParzysta == -1) {
+        printf("W tablicy nie ma liczb parzystych.\n");
+    }else{
+        printf("Najmniejsza liczba parzysta w tablicy: %d\n", minParzysta);
+    }
+    for (i = 0; i < 5; i++){
+        printf("%d ", pa[i]);
+    }
+    free(pa);
     return 0;
 }

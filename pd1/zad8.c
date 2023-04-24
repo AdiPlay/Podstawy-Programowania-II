@@ -15,7 +15,7 @@ int main(int argc, char const *argv[])
         }
         fflush(stdin);
     } while (k == 0);
-    printf("Pierwiastek z %d: %d\n", n, floorSqrt(n));  
+    printf("Zaokrąglony w dół pierwiastek z %d: %d\n", n, floorSqrt(n));  
     return 0;
 }
 

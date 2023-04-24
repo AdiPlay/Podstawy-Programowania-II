@@ -1,7 +1,5 @@
 #include <stdio.h>
-
 int pow(int n, int m);
-
 int main(int argc, char const *argv[])
 {
     int n, m, k;
@@ -28,7 +26,6 @@ int main(int argc, char const *argv[])
     printf("%d do potęgi %d: %d\n", n, m, pow(n, m));
     return 0;
 }
-
 int pow(int n, int m)
 {
     while (m > 0)
