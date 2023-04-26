@@ -10,9 +10,7 @@ int main() {
     int n = 5;
     int tab1[] = {1, 2, 3, 4, 5};
     int tab2[n];
-
     przepisz_odwrotnie(n, tab1, tab2);
-
     printf("tab1: ");
     for (int i = 0; i < n; i++) {
         printf("%d ", tab1[i]);
@@ -24,6 +22,5 @@ int main() {
         printf("%d ", tab2[i]);
     }
     printf("\n");
-
     return 0;
 }
