@@ -9,14 +9,11 @@ double dDivide(double a, double b);
 
 int main()
 {
-
     double a, b;
     char ch;
     int k;
-
     do
     {
-
         printf("Wprowadź pierwszą liczbę: ");
         k = scanf("%lf", &a);
         if (k == 0)
