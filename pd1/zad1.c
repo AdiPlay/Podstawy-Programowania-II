@@ -11,7 +11,7 @@ int main(int argc, char const *argv[])
         k = scanf("%d", &n);
         if (k == 0)
         {
-            printf("Błąd formatu, spróbuj ponownie: \n");
+            printf("Błąd formatu, spróbuj ponownie \n");
         }
         fflush(stdin);
     } while (k == 0);
