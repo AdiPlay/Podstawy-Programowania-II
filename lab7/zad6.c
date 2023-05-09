@@ -36,6 +36,21 @@ int main(int argc, char const *argv[]){
         printf("%d ", tab[i]);
     }
     printf("\n");
+    int j, temp;
+    for (i = 0; i < n; i++){
+        for (j = 0; j < n - 1; j++){
+            if (tab[j] > tab[j + 1]){
+                temp = tab[j];
+                tab[j] = tab[j + 1];
+                tab[j + 1] = temp;
+            }
+        }
+    }
+    printf("Posortowane liczby: \n");
+    for (i = 0; i < n; i++){
+        printf("%d ", tab[i]);
+    }
+    printf("\n");
     fclose(fp);
     return 0;
 }
