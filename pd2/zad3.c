@@ -1,7 +1,5 @@
 #include <stdio.h>
-
 int min(int* x, int* y);
-
 int main() {
     int a = 10;
     int b = 5;
@@ -9,7 +7,6 @@ int main() {
     printf("Mniejsze jest %d\n", m); 
     return 0;
 }
-
 int min(int* x, int* y) {
     if (*x < *y) {
         return *x;

@@ -21,7 +21,6 @@ int main(int argc, char const *argv[]){
     free(wynik);
     return 0;
 }
-
 int *function(int n, int tab[]){
     int *wynik = (int *)malloc(6 * sizeof(int));
     int max = tab[0], min = tab[0], maxIndex = 0, minIndex = 0, maxAbs = abs(tab[0]), maxAbsIndex = 0;

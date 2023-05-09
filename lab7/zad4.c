@@ -1,8 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-
-int main(int argc, char const *argv[])
-{
+int main(int argc, char const *argv[]){
     srand(time(NULL));
     int i, buf;
     char bufc;
@@ -29,8 +27,15 @@ int main(int argc, char const *argv[])
     fseek(fp1, 0, 0);
     while(fread(&buf, sizeof(int), 1, fp1))
         fwrite(&buf, sizeof(int), 1, fp2);
+    fseek(fp1, 0, 0);
+    printf("Odczyt pliku liczby3.dat");
+    i=0;
+    while(fread(&buf, sizeof(int), 1, fp1)){
+        printf("\nElement pliku nr %d = %d",i, buf);
+        i++;
+    }
     fseek(fp2, 0, 0);
-    printf("Odczyt pliku kopia.dat");
+    printf("\nOdczyt pliku kopia.dat");
     i=0;
     while(fread(&buf, sizeof(int), 1, fp2)){
         printf("\nElement pliku nr %d = %d",i, buf);

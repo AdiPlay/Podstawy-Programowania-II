@@ -13,7 +13,13 @@ int main(int argc, char const *argv[])
         if (buf < min)
             min = buf;
     }
-    printf("Najmniejsza liczba: %d\nNajwieksza liczba: %d", min, max);
+    printf("Odczyt pliku liczby3.dat");
+    fseek(fp, 0, 0);
+    while(fread(&buf, sizeof(int), 1, fp)){
+        printf("\nElement pliku nr %d = %d",i, buf);
+        i++;
+    }
+    printf("\nNajmniejsza liczba: %d\nNajwieksza liczba: %d", min, max);
     fclose(fp);
     return 0;
 }

@@ -2,8 +2,7 @@
 
 void polacztablice(int n, int tab1[], int tab2[], int tab3[]);
 
-int main(int argc, char const *argv[])
-{
+int main(int argc, char const *argv[]){
     int n = 5;
     int tab1[] = {1, 2, 3, 4, 5};
     int tab2[] = {6, 7, 8, 9, 10};
@@ -26,8 +25,6 @@ int main(int argc, char const *argv[])
     printf("\n");  
     return 0;
 }
-
-
 void polacztablice(int n, int tab1[], int tab2[], int tab3[]) {
     for (int i = 0; i < n; i++) {
         tab3[i] = tab1[i];
