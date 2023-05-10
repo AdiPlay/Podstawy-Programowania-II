@@ -17,7 +17,7 @@ int main(int argc, char const *argv[])
     tab = calloc(n, sizeof(int));
     fseek(fp, 0, SEEK_SET);
     fread(tab, sizeof(int), n, fp);
-    printf("Odczytano %d liczb\n", n);
+    printf("Odczytano %d liczby\n", n);
     printf("Oto one: ");
     for (i = 0; i < n; i++)
     {
