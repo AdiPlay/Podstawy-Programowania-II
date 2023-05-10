@@ -49,7 +49,7 @@ int main(int argc, char const *argv[]){
     }
     fseek(fp3, 0, 0);
     i=0;
-    printf("\nLiczby parzyste z pliku");
+    printf("\nLiczby parzyste z pliku liczby4.dat");
     while(fread(&buf, sizeof(int), 1, fp3)){
         printf("\nElement pliku nr %d = %d",i, buf);
         i++;
