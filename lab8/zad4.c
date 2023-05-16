@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <ctype.h>
-
 int main() {
   char c;
   printf("Podaj znak: ");
@@ -17,6 +16,5 @@ int main() {
   printf("isspace: %d\n", isspace(c));
   printf("isupper: %d\n", isupper(c));
   printf("isxdigit: %d\n", isxdigit(c));
-
   return 0;
 }
