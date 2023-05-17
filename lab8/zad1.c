@@ -1,10 +1,10 @@
 #include <stdio.h>
 #include <conio.h>
 
-int main(){
+int main()
+{
     char c;
     printf("Podaj znak metodą scanf: ");
-    fflush(stdin);
     scanf("%c", &c);
     printf("Znak: %c\n", c);
     printf("Podaj znak metodą getchar: ");
@@ -17,6 +17,4 @@ int main(){
     c = getch();
     putc(c, stdout);
     printf("\n");
-
-
 }

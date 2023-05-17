@@ -4,10 +4,10 @@
 
 struct Processor
 {
+    int id;
+    char name[100];
     int cores;
     float clock_speed;
-    float price;
-
 };
 
 void addProcessor(struct Processor *processors, int *count);
