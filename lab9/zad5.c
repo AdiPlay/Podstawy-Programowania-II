@@ -1,11 +1,10 @@
 #include <stdio.h>
 #include <string.h>
-
-int main(int argc, char const *argv[])
-{
+int main(int argc, char const *argv[]){
     char s1[6], s2[6];
     printf("Podaj tablice s1: ");
     fgets(s1, 6, stdin);
+    fflush(stdin);
     printf("Podaj tablice s2: ");
     fgets(s2, 6, stdin);
     int p = strcmp(s1, s2);

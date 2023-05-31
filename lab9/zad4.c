@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <string.h>
-
 int main() {
     char lan1[100], znak, lan2[4];
     // wczytanie danych
@@ -11,7 +10,6 @@ int main() {
     scanf(" %c", &znak);
     printf("Podaj lancuch znakow lan2: ");
     scanf("%3s", lan2);
-
     // sprawdzenie czy znak i lancuch znakow lan2 wystepuja w lan1
     if (strchr(lan1, znak) != NULL) {
         printf("Podany znak wystepuje w lan1.\n");
@@ -23,6 +21,5 @@ int main() {
     } else {
         printf("Podany lancuch znakow lan2 nie wystepuje w lan1.\n");
     }
-
     return 0;
 }
