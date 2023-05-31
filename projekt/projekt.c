@@ -89,9 +89,7 @@ void zapisz(Gra *gry, int n){
         printf("Nie udalo sie otworzyc pliku\n");
         exit(1);
     }
-    for(int i = 0; i < n; i++){
-        fprintf(fp, "%d %s %s %d %s %f\n", gry[i].id, gry[i].tytul, gry[i].autor, gry[i].rokWydania, gry[i].gatunek, gry[i].cena);
-    }
+    fwrite(gry, sizeof(struct Gra), n, fp);
     fclose(fp);
 }
 void usun(Gra *gry, int n){
@@ -153,11 +151,18 @@ void sortuj(Gra *gry, int n){
 }
 
 void wypisz(Gra *gry, int n){
-    //wypisz graficznie
-    printf("id\ttytul\tautor\trok wydania\tgatunek\tcena\n");
-    for(int i = 0; i < n; i++){
-        printf("%d\t%s\t%s\t%d\t%s\t%f\n", gry[i].id, gry[i].tytul, gry[i].autor, gry[i].rokWydania, gry[i].gatunek, gry[i].cena);
+    FILE *fp;
+    fp = fopen("gry.txt", "r");
+    struct Gra buf;
+    buf = (struct Gra*)malloc(sizeof(struct Gra));
+    while(fread(&buf, sizeof(struct Gra), 1, fp) == 1){
+        printf("Tytul: %s\n", buf.tytul);
+        printf("Autor: %s\n", buf.autor);
+        printf("Rok wydania: %d\n", buf.rokWydania);
+        printf("Gatunek: %s\n", buf.gatunek);
+        printf("Cena: %f\n", buf.cena);
     }
+    fclose(fp); 
     
 }
 

@@ -40,6 +40,7 @@ int main(){
         printf("Imie: %s\n", pracownicy[i].imie);
         printf("Nazwisko: %s\n", pracownicy[i].nazwisko);
         printf("Staz pracy: %d\n", pracownicy[i].staz_pracy);
+        printf("--------------------\n")
         printf("Adres:\n");
         printf("Ulica: %s\n", pracownicy[i].adres.ulica);
         printf("Nr domu: %d\n", pracownicy[i].adres.nr_domu);
