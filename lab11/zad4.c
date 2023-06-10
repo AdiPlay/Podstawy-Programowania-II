@@ -1,13 +1,11 @@
 #include <stdio.h>
 #include <string.h>
-
 struct DaneTechniczne {
     int pojemnoscSkokowa;
     int moc;
     int momentObrotowy;
     char paliwo[10];
 };
-
 struct Silnik {
     char nazwa[25];
     char producent[25];
@@ -16,11 +14,8 @@ struct Silnik {
     int VAT;
     double cenaBrutto;
 };
-
 void zmienDaneTechniczne(struct Silnik* silnik);
-
-int main(int argc, char const *argv[])
-{
+int main(int argc, char const *argv[]){
     struct Silnik silnik;
     FILE* fp = fopen("silniki.dat", "r+b");
     if(fp == NULL){
@@ -38,7 +33,6 @@ int main(int argc, char const *argv[])
     fclose(fp);
     return 0;
 }
-
 void zmienDaneTechniczne(struct Silnik* silnik){
     printf("Podaj nowa pojemnosc skokowa: ");
     scanf("%d", &silnik->daneSilnika.pojemnoscSkokowa);

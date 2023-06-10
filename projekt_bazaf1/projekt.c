@@ -3,6 +3,7 @@
 #include <ctype.h>
 #include <string.h>
 #include <windows.h>
+#include <conio.h>
 
 #define ESC 27
 
@@ -20,19 +21,19 @@ struct F1
 void gotoxy(short x, short y);
 FILE *fp1, *fp2;
 char *tryb1, *tryb2;
-char menu(void);
-void utworzBaze(void);
-void usunBaze(void);
-void przegladBaze(void);
-void sortowanieBazy(void);
+char menu();
+void utworzBaze();
+void usunBaze();
+void przegladBazy();
+void sortowanieBazy();
 void drukujStrukt(struct F1 st);
-struct F1 wczytajStrukt(void);
-void drukujStatus(void);
+struct F1 wczytajStrukt();
+void drukujStatus();
 int main(int argc, char *argv[])
 {
     system("cls");
     menu();
-    utworzBaze();
+    // utworzBaze();
     getchar();
     return 0;
 }
@@ -86,16 +87,20 @@ void utworzBaze(void)
             printf("\n nazwa bazy jest prawidlowa");
         else
             printf("\n nazwa bazy nie jest prawidlowa");
-        getchar();  
+        getchar();
     } while (ok == 0);
     fp1 = fopen(nazwaBazy, "w+b");
     if (fp1 == NULL)
     {
         printf("\n Plik %s nie zostal utworzony", nazwa);
-
         getchar();
         exit(1);
+    } else
+    {
+        printf("\n Plik %s zostal utworzony", nazwa);
+        getchar();
     }
+    menu();
 }
 
 void otworzBaze(void)
@@ -145,7 +150,6 @@ void otworzBaze(void)
     if (fp1 == NULL)
     {
         printf("\n Plik %s nie zostal utworzony", nazwa);
-
         getchar();
         exit(1);
     }
@@ -205,11 +209,12 @@ void usunBaze(void)
             printf(" Plik nie zostal usuniety");
     }
     getchar();
-    return;
+    menu();
 }
 char menu(void)
 {
     // funkcja wyswietla glówne menu i zwraca numer wybranej opcji
+    system("cls");
     char ch;
     int x, y;
     x = 20;
@@ -263,7 +268,7 @@ void gotoxy(short x, short y)
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
 }
 
-void przegladBazy(void)
+void przegladBazy()
 {
     struct F1 st;
     int x = 1, y = 24;
@@ -272,8 +277,9 @@ void przegladBazy(void)
     gotoxy(x, y);
     printf(" Metoda przegladBazy");
     drukujStatus();
-    // gotoxy(1,24);
-    // printf("Y-1 rec up B-1 rec down G-Home H -End R -read rec M-modify S - sort ESC -exit");
+    drukujStrukt(st);
+    gotoxy(1,24);
+    printf("Y-1 rec up B-1 rec down G-Home H -End R -read rec M-modify S - sort ESC -exit");
     while (1)
     {
         drukujStatus();
@@ -286,23 +292,23 @@ void przegladBazy(void)
         {
         case 'Y':
             gotoxy(20, 18);
-            printf(" Wybrano opcja Y - Enter");
+            // printf(" Wybrano opcja Y - Enter");
             getchar();
             otworzBaze();
             break;
         case 'B':
             gotoxy(20, 18);
-            printf(" Wybrano opcja B - Enter ");
+            // printf(" Wybrano opcja B - Enter ");
             utworzBaze();
             break;
         case 'G':
             gotoxy(20, 18);
-            printf(" Wybrano opcja G - Enter ");
+            // printf(" Wybrano opcja G - Enter ");
             usunBaze();
             break;
         case 'H':
             gotoxy(20, 18);
-            printf(" Wybrano opcja H - Enter ");
+            // printf(" Wybrano opcja H - Enter ");
             getchar();
             break;
         case 'R':
@@ -315,18 +321,18 @@ void przegladBazy(void)
             break;
         case 'M':
             gotoxy(20, 18);
-            printf(" Wybrano opcja M - Enter ");
+            // printf(" Wybrano opcja M - Enter ");
             getchar();
             break;
         case 'S':
             gotoxy(20, 18);
-            printf(" Wybrano opcja S - Enter ");
+            // printf(" Wybrano opcja S - Enter ");
             sortowanieBazy();
             // getchar();
             break;
         case ESC:
             gotoxy(20, 18);
-            printf(" Wybrano opcja ESC - Enter ");
+            // printf(" Wybrano opcja ESC - Enter ");
             getchar();
             exit(0);
             break;
@@ -351,61 +357,113 @@ void sortowanieBazy(void)
 // char narodowosc[20];
 void drukujStrukt(struct F1 st)
 {
+    FILE *fp;
+    fp = fopen("aaaa11.dat", "r");
+    if (fp == NULL)
+    {
+        printf("Nie mozna otworzyc pliku");
+        exit(1);
+    }
     int x = 20, y = 8;
     system("cls");
     gotoxy(x, y);
-    printf("Imie: %s", st.imie);
-    gotoxy(x, y + 1);
-    printf("Nazwisko: %s", st.nazwisko);
-    gotoxy(x, y + 2);
-    printf("Identyfikator: %d", st.identyfikator);
-    gotoxy(x, y + 3);
-    printf("Rok Debiutu: %d", st.rokDebiutu);
-    gotoxy(x, y + 4);
-    printf("Liczba Mistrzostw: %d", st.liczbaMistrzostw);
-    gotoxy(x, y + 5);
-    printf("Liczba Zwyciestw: %d", st.liczbaZwyciestw);
-    gotoxy(x, y + 6);
-    printf("Narodowosc: %s", st.narodowosc);
+    while(fread(&st, sizeof(struct F1), 1, fp) == 1)
+    {
+        printf("Imie: %s\n", st.imie);
+        gotoxy(x, y + 1);
+        printf("Nazwisko: %s\n", st.nazwisko);
+        gotoxy(x, y + 2);
+        printf("Identyfikator: %d\n", st.identyfikator);
+        gotoxy(x, y + 3);
+        printf("Rok Debiutu: %d\n", st.rokDebiutu);
+        gotoxy(x, y + 4);
+        printf("Liczba Mistrzostw: %d\n", st.liczbaMistrzostw);
+        gotoxy(x, y + 5);
+        printf("Liczba Zwyciestw: %d\n", st.liczbaZwyciestw);
+        gotoxy(x, y + 6);
+        printf("Narodowosc: %s\n", st.narodowosc);
+    }
+    fclose(fp);
+
 }
 struct F1 wczytajStrukt(void)
 {
-    struct F1 st;
-    fflush(stdin);
+    struct F1 st = {"", "", 0, 0, 0, ""};
     int x = 20, y = 8;
     system("cls");
     gotoxy(x, y);
-    fflush(stdin);
-    printf("Imie: ");
-    scanf("%s", st.imie);
-    drukujStatus();
-    fflush(stdin);
-    gotoxy(x, y + 1);
-    printf("Nazwisko: ");
-    scanf("%s", st.nazwisko);
-    fflush(stdin);
-    gotoxy(x, y + 2);
-    printf("Identyfikator: ");
-    scanf("%d", &st.identyfikator);
-    fflush(stdin);
-    gotoxy(x, y + 3);
-    printf("Rok Debiutu: ");
-    scanf("%d", st.rokDebiutu);
-    fflush(stdin);
-    gotoxy(x, y + 4);
-    printf("Liczba Mistrzostw: ");
-    scanf("%d", st.liczbaMistrzostw);
-    fflush(stdin);
-    gotoxy(x, y + 5);
-    printf("Liczba Zwyciestw: ");
-    scanf("%d", &st.liczbaZwyciestw);
-    gotoxy(x, y + 5);
-    printf("Narodosc: ");
-    scanf("%s", &st.narodowosc);
+
+    char buffer[256];
+    const char* labels[] = {"Imie", "Nazwisko", "Identyfikator", "Rok Debiutu", "Liczba Mistrzostw", "Liczba Zwyciestw", "Narodowosc"};
+    int values[] = {0, 0, 0, 0, 0, 0};
+
+    for (int i = 0; i < 7; i++) {
+        printf("%s: ", labels[i]);
+        fgets(buffer, sizeof(buffer), stdin);
+        buffer[strcspn(buffer, "\n")] = '\0'; // remove trailing newline
+        switch (i) {
+            case 0:
+                strncpy(st.imie, buffer, sizeof(st.imie));
+                break;
+            case 1:
+                strncpy(st.nazwisko, buffer, sizeof(st.nazwisko));
+                break;
+            case 2:
+                if (sscanf(buffer, "%d", &values[0]) != 1) {
+                    printf("Invalid input. Please enter a valid integer.\n");
+                    i--;
+                } else {
+                    st.identyfikator = values[0];
+                }
+                break;
+            case 3:
+                if (sscanf(buffer, "%d", &values[1]) != 1) {
+                    printf("Invalid input. Please enter a valid integer.\n");
+                    i--;
+                } else {
+                    st.rokDebiutu = values[1];
+                }
+                break;
+            case 4:
+                if (sscanf(buffer, "%d", &values[2]) != 1) {
+                    printf("Invalid input. Please enter a valid integer.\n");
+                    i--;
+                } else {
+                    st.liczbaMistrzostw = values[2];
+                }
+                break;
+            case 5:
+                if (sscanf(buffer, "%d", &values[3]) != 1) {
+                    printf("Invalid input. Please enter a valid integer.\n");
+                    i--;
+                } else {
+                    st.liczbaZwyciestw = values[3];
+                }
+                break;
+            case 6:
+                strncpy(st.narodowosc, buffer, sizeof(st.narodowosc));
+                break;
+        }
+    }
+
+    zapiszDoPliku(st);
     return st;
 }
+
 void drukujStatus(void)
 {
     gotoxy(1, 24);
     printf("Y-1 rec up B-1 rec down G-Home H-End R-read M-modify Ssort ESC-exit");
+}
+
+void zapiszDoPliku(struct F1 st)
+{
+    FILE *fp;
+    fp = fopen("aaaa11.dat", "ab");
+    if (fp == NULL){
+        printf("Nie moge otworzyc pliku do zapisu!\n");
+        exit(1);
+    }
+    fwrite(&st, sizeof(struct F1), 1, fp);
+    fclose(fp);
 }

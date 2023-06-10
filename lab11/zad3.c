@@ -1,12 +1,10 @@
 #include <stdio.h>
-
 struct DaneTechniczne{
     int pojemnoscSkokowa;
     int moc;
     int momentObrotowy;
     char paliwo[10];
 };
-
 struct Silnik{
     char nazwa[25];
     char producent[25];
@@ -15,11 +13,8 @@ struct Silnik{
     int VAT;
     float cenaBrutto;
 };
-
 void wyszukajStruktSil(FILE* plik, int pojemnosc);
-
-int main(int argc, char const *argv[])
-{
+int main(int argc, char const *argv[]){
     FILE* fp = fopen("silniki.dat", "r+b");
     if(fp == NULL){
         printf("Nie udalo sie otworzyc pliku");
@@ -33,7 +28,6 @@ int main(int argc, char const *argv[])
     fclose(fp);
     return 0;
 }
-
 void wyszukajStruktSil(FILE* plik, int pojemnosc){
     struct Silnik silnik;
     printf("Wyniki wyszukiwania:\n");
@@ -49,6 +43,5 @@ void wyszukajStruktSil(FILE* plik, int pojemnosc){
             printf("VAT: %d\n", silnik.VAT);
             printf("Cena brutto: %f\n", silnik.cenaBrutto);
         }
-    }
-    
+    }  
 }

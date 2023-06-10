@@ -1,22 +1,18 @@
 #include <stdio.h>
-
 typedef struct{
     char ulica[20];
     int nr_domu;
     char kod[8];
     char miasto[20];
 } Adres;
-
 typedef struct{
     char imie[20];
     char nazwisko[20];
     int staz_pracy;
     Adres adres;
 } Pracownik;
-
 int main(){
     Pracownik pracownicy[2];
-
     for(int i = 0; i < 2; i++){
         printf("Podaj imie pracownika %d: ", i+1);
         scanf("%s", pracownicy[i].imie);
@@ -34,13 +30,12 @@ int main(){
         scanf("%s", pracownicy[i].adres.miasto);
         printf("\n");
     }
-    
     for(int i = 0; i < 2; i++){
         printf("Pracownik %d:\n", i+1);
         printf("Imie: %s\n", pracownicy[i].imie);
         printf("Nazwisko: %s\n", pracownicy[i].nazwisko);
         printf("Staz pracy: %d\n", pracownicy[i].staz_pracy);
-        printf("--------------------\n")
+        printf("--------------------\n");
         printf("Adres:\n");
         printf("Ulica: %s\n", pracownicy[i].adres.ulica);
         printf("Nr domu: %d\n", pracownicy[i].adres.nr_domu);
@@ -48,4 +43,5 @@ int main(){
         printf("Miasto: %s\n", pracownicy[i].adres.miasto);
         printf("\n");
     }
+    return 0;
 }

@@ -1,13 +1,11 @@
 #include <stdio.h>
 #include <string.h>
-
 struct Student{
     char imie[20];
     char nazwisko[20];
     int rokStudiow;
     char wydzial[20];
 };
-
 struct Student wczytStruct(){
     struct Student student;
     printf("Podaj imie studenta: ");
@@ -20,11 +18,8 @@ struct Student wczytStruct(){
     scanf("%s", student.wydzial);
     return student;
 };
-
 void drukStruct(struct Student student);
-
-int main(int argc, char const *argv[])
-{
+int main(int argc, char const *argv[]){
     struct Student studenciR1[2];
     for(int i = 0; i < 2; i++){
         studenciR1[i] = wczytStruct();
@@ -38,9 +33,7 @@ int main(int argc, char const *argv[])
     }
     return 0;
 }
-
-void drukStruct(struct Student student)
-{
+void drukStruct(struct Student student){
     printf("Imie: %s\n", student.imie);
     printf("Nazwisko: %s\n", student.nazwisko);
     printf("Rok studiow: %d\n", student.rokStudiow);

@@ -1,17 +1,13 @@
 #include <stdio.h>
 #include <string.h>
-
 typedef struct Student{
     char imie[20];
     char nazwisko[20];
     int rokStudiow;
     char wydzial[20];
 } Student;
-
 void sortuj(Student *studenci, int n);
-
-int main(int argc, char const *argv[])
-{
+int main(int argc, char const *argv[]){
     Student st[3] = {
         {"Jan", "Kowalski", 1, "Ekonomia"},
         {"Adam", "Nowak", 2, "Informatyka"},
@@ -28,7 +24,6 @@ int main(int argc, char const *argv[])
     }
     return 0;
 }
-
 void sortuj(Student *studenci, int n){
     int i, j;
     Student temp;

@@ -1,17 +1,13 @@
 #include <stdio.h>
 #include <string.h>
-
-struct Student
-{
+struct Student{
     char imie[20];
     char nazwisko[20];
     int rokStudiow;
     char wydzial[20];
 };
-int main(int argc, char const *argv[])
-{
+int main(int argc, char const *argv[]){
     struct Student studenci[3];
-
     for (int i = 0; i < 3; i++){
         printf("Podaj imie studenta %d: ", i+1);
         scanf("%s", studenci[i].imie);
@@ -23,7 +19,6 @@ int main(int argc, char const *argv[])
         scanf("%s", studenci[i].wydzial);
         printf("\n");
     }
-
     for (int i = 0; i < 3; i++){
         printf("Student %d:\n", i+1);
         printf("Imie: %s\n", studenci[i].imie);

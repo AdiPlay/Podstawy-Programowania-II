@@ -1,12 +1,11 @@
 #include <stdio.h>
-
+#include <stdlib.h>
 struct DaneTechniczne{
     int pojemnoscSkokowa;
     int moc;
     int momentObrotowy;
     char paliwo[10];
 };
-
 struct Silnik{
     char nazwa[25];
     char producent[25];
@@ -15,13 +14,10 @@ struct Silnik{
     int VAT;
     float cenaBrutto;
 };
-
 void wczytajStrukt(struct Silnik* silnik);
 void dodajDoPliku(struct Silnik* silnik, FILE* plik);
 void odczytajDrukuj(FILE* plik);
-
-int main(int argc, char const *argv[])
-{
+int main(int argc, char const *argv[]){
     FILE *fp = fopen("silniki.dat", "w+b");
     if(fp == NULL){
         printf("Nie udalo sie otworzyc pliku");
@@ -31,12 +27,10 @@ int main(int argc, char const *argv[])
     wczytajStrukt(&silnik);
     dodajDoPliku(&silnik, fp);
     rewind(fp);
-    printf("\nZawartość pliku:\n");
     odczytajDrukuj(fp);
     fclose(fp);
     return 0;
 }
-
 void wczytajStrukt(struct Silnik* silnik){
     printf("Podaj nazwe silnika: ");
     scanf("%s", silnik->nazwa);
@@ -56,15 +50,12 @@ void wczytajStrukt(struct Silnik* silnik){
     scanf("%d", &silnik->VAT);
     silnik->cenaBrutto = silnik->cenaNetto * (1 + silnik->VAT/100.0);
 }
-
 void dodajDoPliku(struct Silnik* silnik, FILE* plik) {
     fwrite(silnik, sizeof(struct Silnik), 1, plik);
 }
-
 void odczytajDrukuj(FILE* plik) {
     struct Silnik silnik;
-
-    printf("Zawartość pliku:\n");
+    printf("Zawartosc pliku:\n");
     while (fread(&silnik, sizeof(struct Silnik), 1, plik) == 1) {
         printf("Nazwa: %s\n", silnik.nazwa);
         printf("Producent: %s\n", silnik.producent);

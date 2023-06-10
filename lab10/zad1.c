@@ -6,9 +6,7 @@ struct Student{
     int rokStudiow;
     char wydzial[20];
 };
-
-int main(int argc, char const *argv[])
-{
+int main(int argc, char const *argv[]){
     FILE *file = fopen("studenci.txt", "w");
     //metoda 1 - strcpy
     struct Student student1, student2;

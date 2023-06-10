@@ -1,8 +1,6 @@
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
 struct DaneTechniczne{
     int pojemnoscSkokowa;
     int moc;
@@ -17,12 +15,9 @@ struct Silnik{
     int VAT;
     float cenaBrutto;
 };
-
 void utworzNowyPlik();
-void drukujStruktSilnik(struct Silnik silnik);
-
-int main(int argc, char const *argv[])
-{
+void drukujStruktSil(struct Silnik silnik);
+int main(int argc, char const *argv[]){
     struct Silnik silniki[4] = {
         {"1.9TDI", "VW", 1000, {100, 100, 100, "Benzyna"}, 23, 1230},
         {"Boxer", "Subaru", 2000, {200, 200, 200, "Diesel"}, 23, 2460},
@@ -53,7 +48,6 @@ int main(int argc, char const *argv[])
     //zmienDaneTechniczne();
     return 0;
 }
-
 void utworzNowyPlik(){
     FILE *fp = fopen("silniki.dat", "w+b");
     if(fp == NULL){
@@ -61,7 +55,6 @@ void utworzNowyPlik(){
         exit(1);
     }
 }
-
 void drukujStruktSil(struct Silnik silnik){
     printf("Nazwa: %s\n", silnik.nazwa);
     printf("Producent: %s\n", silnik.producent);
