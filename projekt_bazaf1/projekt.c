@@ -31,6 +31,33 @@ struct F1 wczytajStrukt();
 void drukujStatus();
 int main(int argc, char *argv[])
 {
+    FILE *fp;
+    fp=fopen("aaaa11.dat", "wb");
+    struct F1 kierowcy[20]={
+        {1, "Lewis", "Hamilton", 2007, 7, 95, "Wielka Brytania"},
+        {2, "Valtteri", "Bottas", 2013, 0, 9, "Finlandia"},
+        {3, "Max", "Verstappen", 2015, 0, 10, "Holandia"},
+        {4, "Sergio", "Perez", 2011, 0, 2, "Meksyk"},
+        {5, "Lando", "Norris", 2019, 0, 0, "Wielka Brytania"},
+        {6, "Charles", "Leclerc", 2018, 0, 2, "Monako"},
+        {7, "Carlos", "Sainz", 2015, 0, 0, "Hiszpania"},
+        {8, "Daniel", "Ricciardo", 2011, 0, 7, "Australia"},
+        {9, "Pierre", "Gasly", 2017, 0, 1, "Francja"},
+        {10, "Sebastian", "Vettel", 2007, 4, 53, "Niemcy"},
+        {11, "Esteban", "Ocon", 2016, 0, 1, "Francja"},
+        {12, "Fernando", "Alonso", 2001, 2, 32, "Hiszpania"},
+        {14, "Lance", "Stroll", 2017, 0, 1, "Kanada"},
+        {16, "Kimi", "Raikkonen", 2001, 1, 21, "Finlandia"},
+        {18, "Lukas", "Wehrlein", 2016, 0, 0, "Niemcy"},
+        {22, "Yuki", "Tsunoda", 2021, 0, 0, "Japonia"},
+        {31, "Esteban", "Gutierrez", 2013, 0, 0, "Meksyk"},
+        {44, "Lewis", "Hamilton", 2007, 7, 95, "Wielka Brytania"}
+    };
+    for(int i=0; i<20; i++)
+    {
+        fwrite(&kierowcy[i], sizeof(struct F1), 1, fp);
+    }
+    fclose(fp);
     system("cls");
     menu();
     // utworzBaze();
@@ -39,6 +66,15 @@ int main(int argc, char *argv[])
 }
 
 void utworzNowyPlik(char *nazwa, char *tryb)
+{
+    FILE *fp;
+    if ((fp = fopen(nazwa, tryb)) == NULL)
+    {
+        printf("Nie moge otworzyc pliku %s.\n", nazwa);
+        exit(1);
+    }
+}
+void otworzPlik(char *nazwa, char *tryb)
 {
     FILE *fp;
     if ((fp = fopen(nazwa, tryb)) == NULL)
@@ -226,7 +262,7 @@ char menu(void)
     gotoxy(x, y + 2);
     printf("2.Utworz nowa baze");
     gotoxy(x, y + 3);
-    printf("3. Usun baze");
+    printf("3.Usun baze");
     gotoxy(x, y + 4);
     printf("4.Zakoncz program");
     gotoxy(x, y + 5);
@@ -357,97 +393,51 @@ void sortowanieBazy(void)
 // char narodowosc[20];
 void drukujStrukt(struct F1 st)
 {
-    FILE *fp;
-    fp = fopen("aaaa11.dat", "r");
-    if (fp == NULL)
+    FILE *fp1;
+    fp1 = fopen("aaaa11.dat", "r");
+    if (fp1 == NULL)
     {
-        printf("Nie mozna otworzyc pliku");
+        printf("Nie moge otworzyc pliku do odczytu!\n");
         exit(1);
     }
-    int x = 20, y = 8;
-    system("cls");
-    gotoxy(x, y);
-    while(fread(&st, sizeof(struct F1), 1, fp) == 1)
+    while(fread(&st, sizeof(struct F1), 1, fp1) == 1)
     {
         printf("Imie: %s\n", st.imie);
-        gotoxy(x, y + 1);
         printf("Nazwisko: %s\n", st.nazwisko);
-        gotoxy(x, y + 2);
-        printf("Identyfikator: %d\n", st.identyfikator);
-        gotoxy(x, y + 3);
-        printf("Rok Debiutu: %d\n", st.rokDebiutu);
-        gotoxy(x, y + 4);
-        printf("Liczba Mistrzostw: %d\n", st.liczbaMistrzostw);
-        gotoxy(x, y + 5);
-        printf("Liczba Zwyciestw: %d\n", st.liczbaZwyciestw);
-        gotoxy(x, y + 6);
+        printf("Rok debiutu: %d\n", st.rokDebiutu);
+        printf("Liczba mistrzostw: %d\n", st.liczbaMistrzostw);
+        printf("Liczba zwyciestw: %d\n", st.liczbaZwyciestw);
         printf("Narodowosc: %s\n", st.narodowosc);
+        printf("--------------------------------\n");
     }
-    fclose(fp);
-
+    fclose(fp1);
 }
-struct F1 wczytajStrukt(void)
-{
-    struct F1 st = {"", "", 0, 0, 0, ""};
+struct F1 wczytajStrukt(struct F1 st){
     int x = 20, y = 8;
     system("cls");
     gotoxy(x, y);
-
-    char buffer[256];
-    const char* labels[] = {"Imie", "Nazwisko", "Identyfikator", "Rok Debiutu", "Liczba Mistrzostw", "Liczba Zwyciestw", "Narodowosc"};
-    int values[] = {0, 0, 0, 0, 0, 0};
-
-    for (int i = 0; i < 7; i++) {
-        printf("%s: ", labels[i]);
-        fgets(buffer, sizeof(buffer), stdin);
-        buffer[strcspn(buffer, "\n")] = '\0'; // remove trailing newline
-        switch (i) {
-            case 0:
-                strncpy(st.imie, buffer, sizeof(st.imie));
-                break;
-            case 1:
-                strncpy(st.nazwisko, buffer, sizeof(st.nazwisko));
-                break;
-            case 2:
-                if (sscanf(buffer, "%d", &values[0]) != 1) {
-                    printf("Invalid input. Please enter a valid integer.\n");
-                    i--;
-                } else {
-                    st.identyfikator = values[0];
-                }
-                break;
-            case 3:
-                if (sscanf(buffer, "%d", &values[1]) != 1) {
-                    printf("Invalid input. Please enter a valid integer.\n");
-                    i--;
-                } else {
-                    st.rokDebiutu = values[1];
-                }
-                break;
-            case 4:
-                if (sscanf(buffer, "%d", &values[2]) != 1) {
-                    printf("Invalid input. Please enter a valid integer.\n");
-                    i--;
-                } else {
-                    st.liczbaMistrzostw = values[2];
-                }
-                break;
-            case 5:
-                if (sscanf(buffer, "%d", &values[3]) != 1) {
-                    printf("Invalid input. Please enter a valid integer.\n");
-                    i--;
-                } else {
-                    st.liczbaZwyciestw = values[3];
-                }
-                break;
-            case 6:
-                strncpy(st.narodowosc, buffer, sizeof(st.narodowosc));
-                break;
-        }
-    }
-
-    zapiszDoPliku(st);
+    printf("Podaj imie: ");
+    scanf("%s", st.imie);
+    gotoxy(x, y + 1);
+    printf("Podaj nazwisko: ");
+    scanf("%s", st.nazwisko);
+    gotoxy(x, y + 2);
+    printf("Podaj identyfikator: ");
+    scanf("%d", &st.identyfikator);
+    gotoxy(x, y + 3);
+    printf("Podaj rok debiutu: ");
+    scanf("%d", &st.rokDebiutu);
+    gotoxy(x, y + 4);
+    printf("Podaj liczbe mistrzostw: ");
+    scanf("%d", &st.liczbaMistrzostw);
+    gotoxy(x, y + 5);
+    printf("Podaj liczbe zwyciestw: ");
+    scanf("%d", &st.liczbaZwyciestw);
+    gotoxy(x, y + 6);
+    printf("Podaj narodowosc: ");
+    scanf("%s", st.narodowosc);
     return st;
+ 
 }
 
 void drukujStatus(void)
@@ -456,14 +446,3 @@ void drukujStatus(void)
     printf("Y-1 rec up B-1 rec down G-Home H-End R-read M-modify Ssort ESC-exit");
 }
 
-void zapiszDoPliku(struct F1 st)
-{
-    FILE *fp;
-    fp = fopen("aaaa11.dat", "ab");
-    if (fp == NULL){
-        printf("Nie moge otworzyc pliku do zapisu!\n");
-        exit(1);
-    }
-    fwrite(&st, sizeof(struct F1), 1, fp);
-    fclose(fp);
-}

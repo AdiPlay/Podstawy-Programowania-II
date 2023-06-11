@@ -1,159 +1,74 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
-
-void przepisz43(int macierz[][4], int nrWiersza, int nrKolumny, int podmacierz[][3]);
-void przepisz54(int macierz[][5], int nrWiersza, int nrKolumny, int podmacierz[][4]);
-int sarrus(int macierz[][3]);
-int laplace(int macierz[][4]);
-
-int main(int argc, char *argv[])
-{
-    // Generowanie macierzy A za pomocą funkcji rand()
+#include "zad1.h" // plik nagłówkowy do zadania 1 - zawiera prototypy funkcji oraz biblioteki
+int main(int argc, char *argv[]){
+    // Ustawienie parametrów zadania
     int A[5][5], n = 5;
     unsigned int nrAlbumu = 19727; // Należy wstawić własny nr albumu
-    unsigned int i, j, m, mod;
-    srand(time(NULL));
     int w3 = 3;
     int k1 = 1;
-    for (i = 0; i < n; i++)
-        for (j = 0; j < n; j++)
-        {
-            m = nrAlbumu % (rand() % 10 + 1);
-            A[i][j] = rand() % 10 + m;
+    fillArray(A, n, nrAlbumu); // Wypełnienie tablicy A
+    printArray(A, n);          // Wypisanie tablicy A
+    int B[5][4][4];
+    int C[4][3][3];
+    int detB[5];
+    int detC[4];
+    // Przepisanie podmacierzy 5x4 do macierzy 4x4
+    for (int i = 0; i < 5; i++){
+        przepisz54(A, i, k1, B[i]);
+    }
+    // Przepisanie podmacierzy 4x4 do macierzy 3x3
+    for (int i = 0; i < 4; i++){
+        przepisz43(B[i], w3, 0, C[i]);
+    }
+    // Obliczenie wyznaczników
+    for (int i = 0; i < 4; i++){
+        detC[i] = sarrus(C[i]);
+        detB[i] = laplace(B[i]);
+    }
+    // Obliczenie wyznacznika B4
+    detB[4] = laplace(B[4]);
+    //Obliczenie wyznacznika A metoda Laplace'a
+    int detA = laplace(A);
+    // Wypisanie podmacierzy
+    printf("\nPodmacierze:\n");
+    for (int i = 0; i < 5; i++){
+        printf("B%d:\n", i);
+        for (int j = 0; j < 4; j++){
+            printf("|");
+            for (int k = 0; k < 4; k++){
+                printf("%3d ", B[i][j][k]);
+            }
+            printf("|\n");
         }
-
-    // Wygenerowana macierz A
-    printf("Macierz A:\n");
-    for (i = 0; i < n; i++)
-    {
-        for (j = 0; j < n; j++)
-            printf("%3d ", A[i][j]);
-        printf("\n");
     }
-
-    int B0[4][4], B1[4][4], B2[4][4], B3[4][4], B4[4][4];
-    // Podział macierzy A (5x5) na podmacierze B (4x4)
-    przepisz54(A, 0, k1, B0);
-    przepisz54(A, 1, k1, B1);
-    przepisz54(A, 2, k1, B2);
-    przepisz54(A, 3, k1, B3);
-    przepisz54(A, 4, k1, B4);
-
-    // Podział macierzy B (4x4) na podmacierze C (3x3)
-    int C0[3][3], C1[3][3], C2[3][3], C3[3][3], C4[3][3];
-    przepisz43(B0, w3, 0, C0);
-    przepisz43(B1, w3, 0, C1);
-    przepisz43(B2, w3, 0, C2);
-    przepisz43(B3, w3, 0, C3);
-
-    // Obliczenie wyznaczników macierzy C (3x3) i B (4x4)
-    // Metoda Sarrusa
-    int detC0 = sarrus(C0);
-    int detC1 = sarrus(C1);
-    int detC2 = sarrus(C2);
-    int detC3 = sarrus(C3);
-    // Metoda Laplace'a
-    int detB0 = laplace(B0);
-    int detB1 = laplace(B1);
-    int detB2 = laplace(B2);
-    int detB3 = laplace(B3);
-    int detB4 = laplace(B4);
-
-    // Macierze
-    printf("\nMacierze:\n");
-    printf("B0:\n");
-    for (i = 0; i < 4; i++)
-    {
-        for (j = 0; j < 4; j++)
-            printf("%3d ", B0[i][j]);
-        printf("\n");
+    for (int i = 0; i < 4; i++){
+        printf("C%d:\n", i);
+        for (int j = 0; j < 3; j++){
+            printf("|");
+            for (int k = 0; k < 3; k++){
+                printf("%3d ", C[i][j][k]);
+            }
+            printf("|\n");
+        }
     }
-    printf("B1:\n");
-    for (i = 0; i < 4; i++)
-    {
-        for (j = 0; j < 4; j++)
-            printf("%3d ", B1[i][j]);
-        printf("\n");
-    }
-    printf("B2:\n");
-    for (i = 0; i < 4; i++)
-    {
-        for (j = 0; j < 4; j++)
-            printf("%3d ", B2[i][j]);
-        printf("\n");
-    }
-    printf("B3:\n");
-    for (i = 0; i < 4; i++)
-    {
-        for (j = 0; j < 4; j++)
-            printf("%3d ", B3[i][j]);
-        printf("\n");
-    }
-    printf("B4:\n");
-    for (i = 0; i < 4; i++)
-    {
-        for (j = 0; j < 4; j++)
-            printf("%3d ", B4[i][j]);
-        printf("\n");
-    }
-
-    printf("C0:\n");
-    for (i = 0; i < 3; i++)
-    {
-        for (j = 0; j < 3; j++)
-            printf("%3d ", C0[i][j]);
-        printf("\n");
-    }
-    printf("C1:\n");
-    for (i = 0; i < 3; i++)
-    {
-        for (j = 0; j < 3; j++)
-            printf("%3d ", C1[i][j]);
-        printf("\n");
-    }
-    printf("C2:\n");
-    for (i = 0; i < 3; i++)
-    {
-        for (j = 0; j < 3; j++)
-            printf("%3d ", C2[i][j]);
-        printf("\n");
-    }
-    printf("C3:\n");
-    for (i = 0; i < 3; i++)
-    {
-        for (j = 0; j < 3; j++)
-            printf("%3d ", C3[i][j]);
-        printf("\n");
-    }
-
-    // Wyznaczniki
+    // Wypisanie wyznaczników
     printf("\nWyznaczniki:\n");
-    printf("detB0 = %d\n", detB0);
-    printf("detB1 = %d\n", detB1);
-    printf("detB2 = %d\n", detB2);
-    printf("detB3 = %d\n", detB3);
-    printf("detB4 = %d\n", detB4);
-
-    printf("detC0 = %d\n", detC0);
-    printf("detC1 = %d\n", detC1);
-    printf("detC2 = %d\n", detC2);
-    printf("detC3 = %d\n", detC3);
+    for (int i = 0; i < 5; i++){
+        printf("detB%d = %d\n", i, detB[i]);
+    }
+    for (int i = 0; i < 4; i++){
+        printf("detC%d = %d\n", i, detC[i]);
+    }
+    printf("detA = %d\n", detA); 
+    return 0;
 }
-
 void przepisz43(int macierz[][4], int nrWiersza, int nrKolumny,
-                int podmacierz[][3])
-{
+                int podmacierz[][3]){
     int m = 0, n = 0;
-    for (int i = 0; i < 4; i++)
-    {
-        if (i != nrWiersza)
-        {
+    for (int i = 0; i < 4; i++){
+        if (i != nrWiersza){
             n = 0;
-            for (int j = 0; j < 4; j++)
-            {
-                if (j != nrKolumny)
-                {
+            for (int j = 0; j < 4; j++){
+                if (j != nrKolumny){
                     podmacierz[m][n] = macierz[i][j];
                     n++;
                 }
@@ -162,20 +77,14 @@ void przepisz43(int macierz[][4], int nrWiersza, int nrKolumny,
         }
     }
 }
-
 void przepisz54(int macierz[][5], int nrWiersza, int nrKolumny,
-                int podmacierz[][4])
-{
+                int podmacierz[][4]){
     int m = 0, n = 0;
-    for (int i = 0; i < 5; i++)
-    {
-        if (i != nrWiersza)
-        {
+    for (int i = 0; i < 5; i++){
+        if (i != nrWiersza){
             n = 0;
-            for (int j = 0; j < 5; j++)
-            {
-                if (j != nrKolumny)
-                {
+            for (int j = 0; j < 5; j++){
+                if (j != nrKolumny){
                     podmacierz[m][n] = macierz[i][j];
                     n++;
                 }
@@ -184,9 +93,7 @@ void przepisz54(int macierz[][5], int nrWiersza, int nrKolumny,
         }
     }
 }
-
-int sarrus(int macierz[][3])
-{
+int sarrus(int macierz[][3]){
     return macierz[0][0] * macierz[1][1] * macierz[2][2] +
            macierz[0][1] * macierz[1][2] * macierz[2][0] +
            macierz[0][2] * macierz[1][0] * macierz[2][1] -
@@ -194,9 +101,7 @@ int sarrus(int macierz[][3])
            macierz[0][1] * macierz[1][0] * macierz[2][2] -
            macierz[0][0] * macierz[1][2] * macierz[2][1];
 }
-
-int laplace(int macierz[][4])
-{
+int laplace(int macierz[][4]){
     int det = 0;
     for (int i = 0; i < 4; i++)
     {
@@ -206,4 +111,30 @@ int laplace(int macierz[][4])
         det += sign * macierz[0][i] * sarrus(m);
     }
     return det;
+}
+
+void fillArray(int A[][5], int n, unsigned int nrAlbumu){
+    unsigned int i, j, m;
+    srand(time(NULL));
+    for (i = 0; i < n; i++)
+    {
+        for (j = 0; j < n; j++)
+        {
+            m = nrAlbumu % (rand() % 10 + 1);
+            A[i][j] = rand() % 10 + m;
+        }
+    }
+}
+void printArray(int A[][5], int n){
+    unsigned int i, j;
+    printf("Wygenerowana macierz:\n");
+    for (i = 0; i < n; i++)
+    {
+        printf("|");
+        for (j = 0; j < n; j++)
+        {
+            printf("%3d ", A[i][j]);
+        }
+        printf("|\n");
+    }
 }

@@ -1,13 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
-
 struct DaneTechniczne {
     int pojemnoscSkokowa;
     int moc;
     int momentObrotowy;
     char paliwo[10];
 };
-
 struct Silnik {
     char nazwa[25];
     char producent[25];
@@ -16,14 +14,10 @@ struct Silnik {
     int VAT;
     double cenaBrutto;
 };
-
 int porownajSilniki(const void* a, const void* b);
 void sortujPlik();
-
-int main(int argc, char const *argv[])
-{
+int main(int argc, char const *argv[]){
     sortujPlik();
-
     FILE *fp = fopen("silniki.dat", "rb");
     if(fp == NULL){
         printf("Nie udalo sie otworzyc pliku");
@@ -43,17 +37,13 @@ int main(int argc, char const *argv[])
         printf("-----------------------\n");
     }
     fclose(fp);
-
-
     return 0;
 }
-
 int porownajSilniki(const void* a, const void* b){
     const struct Silnik* silnikA = (struct Silnik*)a;
     const struct Silnik* silnikB = (struct Silnik*)b;
     return silnikA->daneSilnika.pojemnoscSkokowa - silnikB->daneSilnika.pojemnoscSkokowa;
 }
-
 void sortujPlik(){
     FILE* fp = fopen("silniki.dat", "r+b");
     if(fp == NULL){
