@@ -4,6 +4,7 @@
 #include <string.h>
 #include <windows.h>
 #include <conio.h>
+#include <unistd.h>
 
 #define ESC 27
 
@@ -306,7 +307,7 @@ void gotoxy(short x, short y)
 
 void przegladBazy()
 {
-    struct F1 st;
+    struct F1 st = {0}; // initialize st to all zeros
     int x = 1, y = 24;
     char ch;
     system("cls");
@@ -413,31 +414,71 @@ void drukujStrukt(struct F1 st)
     fclose(fp1);
 }
 struct F1 wczytajStrukt(struct F1 st){
+    FILE *fp1;
+    char mode[3];
+    if (access("aaaa11.dat", F_OK) != -1) {
+        printf("Plik juz istnieje. Czy chcesz nadpisac (N) czy dopisac (D)? ");
+        scanf("%s", mode);
+        if (toupper(mode[0]) == 'N') {
+            fp1 = fopen("aaaa11.dat", "wb");
+        } else {
+            fp1 = fopen("aaaa11.dat", "ab");
+        }
+    } else {
+        fp1 = fopen("aaaa11.dat", "wb");
+    }
+    if (fp1 == NULL)
+    {
+        printf("Nie moge otworzyc pliku do zapisu!\n");
+        exit(1);
+    }
     int x = 20, y = 8;
     system("cls");
     gotoxy(x, y);
     printf("Podaj imie: ");
-    scanf("%s", st.imie);
+    if (scanf("%s", st.imie) != 1) {
+        printf("Blad odczytu danych!\n");
+        exit(1);
+    }
     gotoxy(x, y + 1);
     printf("Podaj nazwisko: ");
-    scanf("%s", st.nazwisko);
+    if (scanf("%s", st.nazwisko) != 1) {
+        printf("Blad odczytu danych!\n");
+        exit(1);
+    }
     gotoxy(x, y + 2);
     printf("Podaj identyfikator: ");
-    scanf("%d", &st.identyfikator);
+    if (scanf("%d", &st.identyfikator) != 1) {
+        printf("Blad odczytu danych!\n");
+        exit(1);
+    }
     gotoxy(x, y + 3);
     printf("Podaj rok debiutu: ");
-    scanf("%d", &st.rokDebiutu);
+    if (scanf("%d", &st.rokDebiutu) != 1) {
+        printf("Blad odczytu danych!\n");
+        exit(1);
+    }
     gotoxy(x, y + 4);
     printf("Podaj liczbe mistrzostw: ");
-    scanf("%d", &st.liczbaMistrzostw);
+    if (scanf("%d", &st.liczbaMistrzostw) != 1) {
+        printf("Blad odczytu danych!\n");
+        exit(1);
+    }
     gotoxy(x, y + 5);
     printf("Podaj liczbe zwyciestw: ");
-    scanf("%d", &st.liczbaZwyciestw);
+    if (scanf("%d", &st.liczbaZwyciestw) != 1) {
+        printf("Blad odczytu danych!\n");
+        exit(1);
+    }
     gotoxy(x, y + 6);
     printf("Podaj narodowosc: ");
-    scanf("%s", st.narodowosc);
+    if (scanf("%s", st.narodowosc) != 1) {
+        printf("Blad odczytu danych!\n");
+        exit(1);
+    }
+    fwrite(&st, sizeof(struct F1), 1, fp1);
+    fclose(fp1);
     return st;
- 
 }
 
 void drukujStatus(void)
