@@ -274,6 +274,7 @@ void wczytajZPliku(struct F1 *drivers, int *numDrivers)
     fread(drivers, sizeof(struct F1), *numDrivers, fp1);
     fclose(fp1);
     printf("Dane zostaly wczytane z pliku %s!\n", filename);
+    getchar();
 }
 
 void utworzPlik()
