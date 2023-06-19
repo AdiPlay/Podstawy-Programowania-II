@@ -4,6 +4,7 @@
         "stdio.h": "c",
         "stdlib.h": "c",
         "dirent.h": "c",
-        "projekt_head.h": "c"
+        "projekt_head.h": "c",
+        "projekt_functions.h": "c"
     }
 }

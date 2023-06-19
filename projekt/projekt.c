@@ -20,7 +20,7 @@ int main() {
                 break;
             case 4:
                 sortDrivers(drivers, numDrivers);
-                printf("Kierowcy zostali posortowani!\n");
+                printf("\nKierowcy zostali posortowani!\n");
                 break;
             case 5:
                 printDrivers(drivers, numDrivers);

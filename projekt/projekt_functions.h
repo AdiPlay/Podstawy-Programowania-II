@@ -228,6 +228,8 @@ void zapiszDoPliku(struct F1 *drivers, int numDrivers)
     int x = 20, y = 8;
     clearScreen();
     showDatFiles();
+    gotoxy(x, y - 2);
+    printf("Zapisz dane do pliku");
     gotoxy(x, y);
     printf("Podaj nazwe pliku: ");
     scanf("%s", filename);
@@ -253,6 +255,8 @@ void wczytajZPliku(struct F1 *drivers, int *numDrivers)
     int x = 20, y = 8;
     clearScreen();
     showDatFiles();
+    gotoxy(x, y - 2);
+    printf("Wczytaj dane z pliku");
     gotoxy(x, y);
     printf("Podaj nazwe pliku: ");
     scanf("%s", filename);
@@ -282,6 +286,9 @@ void utworzPlik()
     char filename[100];
     int x = 20, y = 8;
     clearScreen();
+    showDatFiles();
+    gotoxy(x, y - 2);
+    printf("Utworz plik");
     gotoxy(x, y);
     printf("Podaj nazwe pliku: ");
     scanf("%s", filename);
@@ -297,6 +304,7 @@ void utworzPlik()
         exit(1);
     }
     fclose(fp1);
+    gotoxy(x, y + 2);
     printf("Plik %s zostal utworzony!\n", filename);
 }
 
@@ -306,6 +314,8 @@ void usunPlik()
     int x = 20, y = 8;
     clearScreen();
     showDatFiles();
+    gotoxy(x, y - 2);
+    printf("Usun plik");
     gotoxy(x, y);
     printf("Podaj nazwe pliku: ");
     scanf("%s", filename);
