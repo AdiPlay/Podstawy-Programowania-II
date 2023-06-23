@@ -55,46 +55,46 @@ bool checkFileExists(const char *filename)
     return false;
 }
 
-void modyfikacja(struct F1 st[], int numer, int ns)
+void modyfikacja(struct F1 st[], int pos, int ns)
 {
     fflush(stdin);
     system("cls");
-    if (numer == 0)
+    if (pos == 0)
     {
         printf("Nr Kierowcy:");
         scanf("%d", &st[ns].nrKierowcy);
     }
 
-    if (numer == 1)
+    if (pos == 1)
     {
         printf("Imie:");
         scanf("%s", st[ns].imie);
     }
 
-    if (numer == 2)
+    if (pos == 2)
     {
         printf("Nazwisko:");
         scanf("%s", st[ns].nazwisko);
     }
 
-    if (numer == 3)
+    if (pos == 3)
     {
         printf("Rok Debiutu:");
         scanf("%d", &st[ns].rokDebiutu);
     }
 
-    if (numer == 4)
+    if (pos == 4)
     {
         printf("Liczba Mistrzostw:");
         scanf("%d", &st[ns].liczbaMistrzostw);
     }
 
-    if (numer == 5)
+    if (pos == 5)
     {
         printf("Liczba Zwyciestw:");
         scanf("%d", &st[ns].liczbaZwyciestw);
     }
-    if (numer == 6)
+    if (pos == 6)
     {
         printf("Narodowosc:");
         scanf("%s", st[ns].narodowosc);
@@ -511,14 +511,14 @@ void gotoxy(short x, short y)
 }
 void przegladBazy(struct F1 drivTab[])
 {
-    int numer = 0;
+    int pos = 0;
     struct F1 st;
     int x = 1, y = 24;
     char ch;
 baseMenu:
     system("cls");
     gotoxy(x, y);
-    drukujStrukt((FILE *)fp1, numer, drivTab);
+    drukujStrukt((FILE *)fp1, pos, drivTab);
     printf("Y - UP | B- DOWN | G - HOME | H - END | D - ADD | U - DELETE | M - MODIFY | S - SORT | ESC - EXIT");
     do
     {
@@ -529,28 +529,28 @@ baseMenu:
     {
     case 'Y':
         printf(" Wybrano opcja Y - Enter");
-        if (numer != 0)
-            numer--;
+        if (pos != 0)
+            pos--;
         goto baseMenu;
         getchar();
         break;
     case 'B':
         printf(" Wybrano opcja B - Enter");
-        if (numer <= drivers)
-            numer++;
+        if (pos <= drivers)
+            pos++;
         goto baseMenu;
         getchar();
         break;
     case 'G':
         gotoxy(20, 18);
         printf(" Wybrano opcja G - Enter ");
-        numer = 0;
+        pos = 0;
         goto baseMenu;
         break;
     case 'H':
         gotoxy(20, 18);
         printf(" Wybrano opcja H - Enter ");
-        numer = drivers - 1;
+        pos = drivers - 1;
         goto baseMenu;
         getchar();
         break;
@@ -565,13 +565,13 @@ baseMenu:
     case 'U':
         gotoxy(20, 18);
         printf(" Wybrano opcja U - Enter ");
-        usunStrukture(drivTab, numer, &drivers);
+        usunStrukture(drivTab, pos, &drivers);
         goto baseMenu;
         break;
     case 'M':
         gotoxy(20, 18);
         printf(" Wybrano opcja M - Enter ");
-        modify(drivTab, numer);
+        modify(drivTab, pos);
         goto baseMenu;
         break;
     case 'S':
@@ -613,7 +613,7 @@ void sortowanie(struct F1 drivTab[])
     printf("\n 5. Liczba mistrzostw");
     printf("\n 6. Liczba zwyciestw ");
     printf("\n 7. Narodowosc");
-    printf("\n Podaj numer pola, wg ktorego baza bedzie sortowana: ");
+    printf("\n Podaj pos pola, wg ktorego baza bedzie sortowana: ");
     do
     {
         ch = getch();
@@ -755,7 +755,7 @@ void drukujStrukt(const char *fileName, int index, struct F1 drivTab[])
 {
     struct F1 rekord;
     int liczbaRekordow = 0;
-    int numerRekordow = index;
+    int posRekordow = index;
 
     for (int i = index; i < index + 5; i++)
     {
@@ -766,11 +766,11 @@ void drukujStrukt(const char *fileName, int index, struct F1 drivTab[])
             if (i == index)
                 printf("[\n");
             printf("Element: %d\nNr Kierowcy: %d\nImie: %s\nNazwisko: %s\nRok debiutu: %d\nLiczba mistrzostw: %d\nLiczba zwyciestw: %d\nNarodowosc: %s\n",
-                   numerRekordow, drivTab[i].nrKierowcy, drivTab[i].imie, drivTab[i].nazwisko, drivTab[i].rokDebiutu, drivTab[i].liczbaMistrzostw, drivTab[i].liczbaZwyciestw, drivTab[i].narodowosc);
+                   posRekordow, drivTab[i].nrKierowcy, drivTab[i].imie, drivTab[i].nazwisko, drivTab[i].rokDebiutu, drivTab[i].liczbaMistrzostw, drivTab[i].liczbaZwyciestw, drivTab[i].narodowosc);
             if (i == index)
                 printf("	]");
             printf("\n");
-            numerRekordow++;
+            posRekordow++;
         }
     }
 }
