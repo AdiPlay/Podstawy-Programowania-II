@@ -21,18 +21,18 @@ struct F1
     char narodowosc[20];
 };
 
-void sortowanie(struct F1 tablica[]);
+void sortowanie(struct F1 drivTab[]);
 void gotoxy(short x, short y);
 FILE *fp1, *fp2;
 char *tryb1, *tryb2;
-int liczbastruktur;
+int drivers;
 char nazwaBazy[11];
 int ifExists = 0;
 char menu(void);
 void utworzBaze(void);
 void usunBaze(void);
-void przegladBazy(struct F1 tablica[]);
-void drukujStrukt(const char *nazwaPliku, int numerRekordu, struct F1 tablica[]);
+void przegladBazy(struct F1 drivTab[]);
+void drukujStrukt(const char *fileName, int index, struct F1 drivTab[]);
 struct F1 wczytajStrukt(void);
 void drukujStatus(void);
 void showDatFiles();
@@ -104,7 +104,7 @@ void modyfikacja(struct F1 st[], int numer, int ns)
     getchar();
     return;
 }
-void modyfikujstrukture(struct F1 tablica[], int ns)
+void modify(struct F1 drivTab[], int ns)
 {
     char ch;
     int ile = 0;
@@ -113,7 +113,7 @@ rewind:
     system("cls");
     printf("G - LEFT J - RIGHT U - UPDATE ESC - EXIT \n");
     printf("Nr Kierowcy: %d , Imie: %s, Nazwisko: %s, Rok Debiutu: %d, Liczba Mistrzostw: %d, Liczba Zwyciestw: %d Narodowsc: %s, \n",
-           tablica[ns].nrKierowcy, tablica[ns].imie, tablica[ns].nazwisko, tablica[ns].rokDebiutu, tablica[ns].liczbaMistrzostw, tablica[ns].liczbaZwyciestw, tablica[ns].narodowosc);
+           drivTab[ns].nrKierowcy, drivTab[ns].imie, drivTab[ns].nazwisko, drivTab[ns].rokDebiutu, drivTab[ns].liczbaMistrzostw, drivTab[ns].liczbaZwyciestw, drivTab[ns].narodowosc);
 
     if (ile == 0)
         gotoxy(0, 2);
@@ -151,7 +151,7 @@ rewind:
         goto rewind;
         break;
     case 'U':
-        modyfikacja(tablica, ile, ns);
+        modyfikacja(drivTab, ile, ns);
         goto rewind;
         break;
     case ESC:
@@ -165,7 +165,6 @@ rewind:
 
 void usunStrukture(struct F1 tab[], int index, int *size)
 {
-    // Przesunięcie elementów o jedno miejsce do lewej, zaczynając od indeksu, który ma zostać usunięty
     for (int i = index; i < *size - 1; i++)
     {
         tab[i] = tab[i + 1];
@@ -250,7 +249,7 @@ void utworzBaze(void)
     }
 }
 
-int saveQuit(struct F1 tablica[])
+int saveQuit(struct F1 drivTab[])
 {
     char ch;
     printf("Czy chcesz zapisac? \n T - TAK | N - NIE");
@@ -265,7 +264,7 @@ int saveQuit(struct F1 tablica[])
         printf("\nZapisywanie...");
         fclose(fp1);
         fp1 = fopen(nazwaBazy, "wb");
-        fwrite(tablica, sizeof(struct F1), liczbastruktur, fp1);
+        fwrite(drivTab, sizeof(struct F1), drivers, fp1);
         fclose(fp1);
         fp1 = fopen(nazwaBazy, "a+b");
         getchar();
@@ -285,25 +284,25 @@ int saveQuit(struct F1 tablica[])
     switch (ch)
     {
     case 'T':
-        printf("\nZamykam i przechodze dalej");
+        printf("\nZamykam");
         fclose(fp1);
-        for (int i = 0; i < liczbastruktur; i++)
+        for (int i = 0; i < drivers; i++)
         {
-            memset(&tablica[i], 0, sizeof(struct F1));
+            memset(&drivTab[i], 0, sizeof(struct F1));
         }
         ifExists = 0;
         getchar();
         return 1;
         break;
     case 'N':
-        printf("\nNie zamykam i wracam");
+        printf("\nNie zamykam");
         getchar();
         return 0;
         break;
     }
 }
 
-void otworzBaze(struct F1 tablica[])
+void otworzBaze(struct F1 drivTab[])
 { // Funkcja otwierajaca baze
     char nazwa[5];
     int i, licz = 0, ok, ok1 = 0, ok2 = 0, ok3 = 0;
@@ -337,7 +336,7 @@ void otworzBaze(struct F1 tablica[])
                 licz++;
         if (licz == 2)
             ok3 = 1;
-        printf("\n ok2=%d", ok2);
+        printf("\n ok3=%d", ok2);
         ok = ok1 * ok2 * ok3;
         if (ok)
             printf("\n nazwa bazy jest prawidlowa");
@@ -356,14 +355,14 @@ void otworzBaze(struct F1 tablica[])
     else
     {
         printf("\n Otworzono plik %s", nazwa);
-        liczbastruktur = 0;
+        drivers = 0;
         ifExists = 1;
-        while (liczbastruktur < 1000 && fread(&tablica[liczbastruktur], sizeof(struct F1), 1, fp1) == 1)
+        while (drivers < 1000 && fread(&drivTab[drivers], sizeof(struct F1), 1, fp1) == 1)
         {
-            liczbastruktur++;
+            drivers++;
         }
         getchar();
-        przegladBazy(tablica);
+        przegladBazy(drivTab);
     }
 }
 
@@ -402,7 +401,7 @@ void usunBaze(void)
                 licz++;
         if (licz == 2)
             ok3 = 1;
-        printf("\n ok2=%d", ok2);
+        printf("\n ok3=%d", ok2);
         ok = ok1 * ok2 * ok3;
         if (ok)
             printf("\n nazwa bazy jest prawidlowa");
@@ -431,10 +430,10 @@ void usunBaze(void)
 
 char menu(void)
 {
-    struct F1 tablica[1000];
+    struct F1 drivTab[1000];
     while (1)
     {
-    odnowa:
+    menu:
         system("cls");
 
         char ch;
@@ -467,18 +466,18 @@ char menu(void)
             getchar();
             if (ifExists == 1)
             {
-                if (saveQuit(tablica) == 0)
-                    goto odnowa;
+                if (saveQuit(drivTab) == 0)
+                    goto menu;
             }
-            otworzBaze(tablica);
+            otworzBaze(drivTab);
             break;
         case '2':
             gotoxy(20, 18);
             printf(" Wybrano opcja 2 - Enter ");
             if (ifExists == 1)
             {
-                if (saveQuit(tablica) == 0)
-                    goto odnowa;
+                if (saveQuit(drivTab) == 0)
+                    goto menu;
             }
             utworzBaze();
             break;
@@ -487,8 +486,8 @@ char menu(void)
             printf(" Wybrano opcja 3 - Enter ");
             if (ifExists == 1)
             {
-                if (saveQuit(tablica) == 0)
-                    goto odnowa;
+                if (saveQuit(drivTab) == 0)
+                    goto menu;
             }
             usunBaze();
             break;
@@ -498,8 +497,8 @@ char menu(void)
             getchar();
             if (ifExists == 1)
             {
-                if (saveQuit(tablica) == 0)
-                    goto odnowa;
+                if (saveQuit(drivTab) == 0)
+                    goto menu;
             }
             exit(0);
         }
@@ -510,16 +509,16 @@ void gotoxy(short x, short y)
     COORD pos = {x, y};
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
 }
-void przegladBazy(struct F1 tablica[])
+void przegladBazy(struct F1 drivTab[])
 {
     int numer = 0;
     struct F1 st;
     int x = 1, y = 24;
     char ch;
-jeszczeraz:
+baseMenu:
     system("cls");
     gotoxy(x, y);
-    drukujStrukt((FILE *)fp1, numer, tablica);
+    drukujStrukt((FILE *)fp1, numer, drivTab);
     printf("Y - UP | B- DOWN | G - HOME | H - END | D - ADD | U - DELETE | M - MODIFY | S - SORT | ESC - EXIT");
     do
     {
@@ -532,54 +531,54 @@ jeszczeraz:
         printf(" Wybrano opcja Y - Enter");
         if (numer != 0)
             numer--;
-        goto jeszczeraz;
+        goto baseMenu;
         getchar();
         break;
     case 'B':
         printf(" Wybrano opcja B - Enter");
-        if (numer <= liczbastruktur)
+        if (numer <= drivers)
             numer++;
-        goto jeszczeraz;
+        goto baseMenu;
         getchar();
         break;
     case 'G':
         gotoxy(20, 18);
         printf(" Wybrano opcja G - Enter ");
         numer = 0;
-        goto jeszczeraz;
+        goto baseMenu;
         break;
     case 'H':
         gotoxy(20, 18);
         printf(" Wybrano opcja H - Enter ");
-        numer = liczbastruktur - 1;
-        goto jeszczeraz;
+        numer = drivers - 1;
+        goto baseMenu;
         getchar();
         break;
     case 'D':
         gotoxy(20, 18);
         printf(" Wybrano opcja D - Enter ");
-        tablica[liczbastruktur] = wczytajStrukt();
-        liczbastruktur++;
-        goto jeszczeraz;
+        drivTab[drivers] = wczytajStrukt();
+        drivers++;
+        goto baseMenu;
         getchar();
         break;
     case 'U':
         gotoxy(20, 18);
         printf(" Wybrano opcja U - Enter ");
-        usunStrukture(tablica, numer, &liczbastruktur);
-        goto jeszczeraz;
+        usunStrukture(drivTab, numer, &drivers);
+        goto baseMenu;
         break;
     case 'M':
         gotoxy(20, 18);
         printf(" Wybrano opcja M - Enter ");
-        modyfikujstrukture(tablica, numer);
-        goto jeszczeraz;
+        modify(drivTab, numer);
+        goto baseMenu;
         break;
     case 'S':
         gotoxy(20, 18);
         printf(" Wybrano opcja S - Enter ");
-        sortowanie(tablica);
-        goto jeszczeraz;
+        sortowanie(drivTab);
+        goto baseMenu;
         // getchar();
         break;
     case ESC:
@@ -593,7 +592,7 @@ jeszczeraz:
     return;
 }
 
-void sortowanie(struct F1 tablica[])
+void sortowanie(struct F1 drivTab[])
 {
     int nrKierowcy;
     char imie[20];
@@ -626,15 +625,15 @@ void sortowanie(struct F1 tablica[])
     {
         printf("\n Wybrano sortowanie wg nr kierowcy - opcja 1");
         // Sortowanie wg nrKierowcy
-        for (i = 0; i < liczbastruktur - 1; i++)
+        for (i = 0; i < drivers - 1; i++)
         {
-            for (int j = 0; j < liczbastruktur - i - 1; j++)
+            for (int j = 0; j < drivers - i - 1; j++)
             {
-                if (tablica[j].nrKierowcy > tablica[j + 1].nrKierowcy)
+                if (drivTab[j].nrKierowcy > drivTab[j + 1].nrKierowcy)
                 {
-                    struct F1 temp = tablica[j];
-                    tablica[j] = tablica[j + 1];
-                    tablica[j + 1] = temp;
+                    struct F1 temp = drivTab[j];
+                    drivTab[j] = drivTab[j + 1];
+                    drivTab[j + 1] = temp;
                 }
             }
         }
@@ -644,15 +643,15 @@ void sortowanie(struct F1 tablica[])
     {
         printf("\n Wybrano sortowanie wg imienia - opcja 2");
         // Sortowanie wg imie
-        for (i = 0; i < liczbastruktur - 1; i++)
+        for (i = 0; i < drivers - 1; i++)
         {
-            for (int j = 0; j < liczbastruktur - i - 1; j++)
+            for (int j = 0; j < drivers - i - 1; j++)
             {
-                if (strcmp(tablica[j].imie, tablica[j + 1].imie) > 0)
+                if (strcmp(drivTab[j].imie, drivTab[j + 1].imie) > 0)
                 {
-                    struct F1 temp = tablica[j];
-                    tablica[j] = tablica[j + 1];
-                    tablica[j + 1] = temp;
+                    struct F1 temp = drivTab[j];
+                    drivTab[j] = drivTab[j + 1];
+                    drivTab[j + 1] = temp;
                 }
             }
         }
@@ -662,15 +661,15 @@ void sortowanie(struct F1 tablica[])
     {
         printf("\n Wybrano sortowanie wg nazwiska - opcja 3");
         // Sortowanie wg nazwisko
-        for (i = 0; i < liczbastruktur - 1; i++)
+        for (i = 0; i < drivers - 1; i++)
         {
-            for (int j = 0; j < liczbastruktur - i - 1; j++)
+            for (int j = 0; j < drivers - i - 1; j++)
             {
-                if (strcmp(tablica[j].nazwisko, tablica[j + 1].nazwisko) > 0)
+                if (strcmp(drivTab[j].nazwisko, drivTab[j + 1].nazwisko) > 0)
                 {
-                    struct F1 temp = tablica[j];
-                    tablica[j] = tablica[j + 1];
-                    tablica[j + 1] = temp;
+                    struct F1 temp = drivTab[j];
+                    drivTab[j] = drivTab[j + 1];
+                    drivTab[j + 1] = temp;
                 }
             }
         }
@@ -680,15 +679,15 @@ void sortowanie(struct F1 tablica[])
     {
         printf("\n Wybrano sortowanie wg roku debiutu - opcja 4");
         // Sortowanie wg rokDebiutu
-        for (i = 0; i < liczbastruktur - 1; i++)
+        for (i = 0; i < drivers - 1; i++)
         {
-            for (int j = 0; j < liczbastruktur - i - 1; j++)
+            for (int j = 0; j < drivers - i - 1; j++)
             {
-                if (tablica[j].rokDebiutu > tablica[j + 1].rokDebiutu)
+                if (drivTab[j].rokDebiutu > drivTab[j + 1].rokDebiutu)
                 {
-                    struct F1 temp = tablica[j];
-                    tablica[j] = tablica[j + 1];
-                    tablica[j + 1] = temp;
+                    struct F1 temp = drivTab[j];
+                    drivTab[j] = drivTab[j + 1];
+                    drivTab[j + 1] = temp;
                 }
             }
         }
@@ -698,15 +697,15 @@ void sortowanie(struct F1 tablica[])
     {
         printf("\n Wybrano sortowanie wg liczby mistrzostw - opcja 5");
         // Sortowanie wg liczbaMistrzostw
-        for (i = 0; i < liczbastruktur - 1; i++)
+        for (i = 0; i < drivers - 1; i++)
         {
-            for (int j = 0; j < liczbastruktur - i - 1; j++)
+            for (int j = 0; j < drivers - i - 1; j++)
             {
-                if (tablica[j].liczbaMistrzostw > tablica[j + 1].liczbaMistrzostw)
+                if (drivTab[j].liczbaMistrzostw > drivTab[j + 1].liczbaMistrzostw)
                 {
-                    struct F1 temp = tablica[j];
-                    tablica[j] = tablica[j + 1];
-                    tablica[j + 1] = temp;
+                    struct F1 temp = drivTab[j];
+                    drivTab[j] = drivTab[j + 1];
+                    drivTab[j + 1] = temp;
                 }
             }
         }
@@ -716,15 +715,15 @@ void sortowanie(struct F1 tablica[])
     {
         printf("\n Wybrano sortowanie wg liczby zwyciestw - opcja 6");
         // Sortowanie wg liczbaZwyciestw
-        for (i = 0; i < liczbastruktur - 1; i++)
+        for (i = 0; i < drivers - 1; i++)
         {
-            for (int j = 0; j < liczbastruktur - i - 1; j++)
+            for (int j = 0; j < drivers - i - 1; j++)
             {
-                if (tablica[j].liczbaZwyciestw > tablica[j + 1].liczbaZwyciestw)
+                if (drivTab[j].liczbaZwyciestw > drivTab[j + 1].liczbaZwyciestw)
                 {
-                    struct F1 temp = tablica[j];
-                    tablica[j] = tablica[j + 1];
-                    tablica[j + 1] = temp;
+                    struct F1 temp = drivTab[j];
+                    drivTab[j] = drivTab[j + 1];
+                    drivTab[j + 1] = temp;
                 }
             }
         }
@@ -734,15 +733,15 @@ void sortowanie(struct F1 tablica[])
     {
         printf("\n Wybrano sortowanie wg narodowosci - opcja 7");
         // Sortowanie wg narodowosc
-        for (i = 0; i < liczbastruktur - 1; i++)
+        for (i = 0; i < drivers - 1; i++)
         {
-            for (int j = 0; j < liczbastruktur - i - 1; j++)
+            for (int j = 0; j < drivers - i - 1; j++)
             {
-                if (strcmp(tablica[j].narodowosc, tablica[j + 1].narodowosc) > 0)
+                if (strcmp(drivTab[j].narodowosc, drivTab[j + 1].narodowosc) > 0)
                 {
-                    struct F1 temp = tablica[j];
-                    tablica[j] = tablica[j + 1];
-                    tablica[j + 1] = temp;
+                    struct F1 temp = drivTab[j];
+                    drivTab[j] = drivTab[j + 1];
+                    drivTab[j + 1] = temp;
                 }
             }
         }
@@ -752,23 +751,23 @@ void sortowanie(struct F1 tablica[])
     system("cls");
 }
 
-void drukujStrukt(const char *nazwaPliku, int numerRekordu, struct F1 tablica[])
+void drukujStrukt(const char *fileName, int index, struct F1 drivTab[])
 {
     struct F1 rekord;
     int liczbaRekordow = 0;
-    int numerRekordow = numerRekordu;
+    int numerRekordow = index;
 
-    for (int i = numerRekordu; i < numerRekordu + 5; i++)
+    for (int i = index; i < index + 5; i++)
     {
-        if (i < liczbastruktur)
+        if (i < drivers)
         {
 
             printf("\n");
-            if (i == numerRekordu)
+            if (i == index)
                 printf("[\n");
             printf("Element: %d\nNr Kierowcy: %d\nImie: %s\nNazwisko: %s\nRok debiutu: %d\nLiczba mistrzostw: %d\nLiczba zwyciestw: %d\nNarodowosc: %s\n",
-                   numerRekordow, tablica[i].nrKierowcy, tablica[i].imie, tablica[i].nazwisko, tablica[i].rokDebiutu, tablica[i].liczbaMistrzostw, tablica[i].liczbaZwyciestw, tablica[i].narodowosc);
-            if (i == numerRekordu)
+                   numerRekordow, drivTab[i].nrKierowcy, drivTab[i].imie, drivTab[i].nazwisko, drivTab[i].rokDebiutu, drivTab[i].liczbaMistrzostw, drivTab[i].liczbaZwyciestw, drivTab[i].narodowosc);
+            if (i == index)
                 printf("	]");
             printf("\n");
             numerRekordow++;
@@ -816,9 +815,9 @@ void drukujStatus(void)
     printf("Y-1 rec up B-1 rec down G-Home H-End R-read M-modify S - sort ESC-exit");
 }
 
-void dopiszDoBazy(const char *nazwaPliku, const struct F1 *rekord)
+void dopiszDoBazy(const char *fileName, const struct F1 *rekord)
 {
-    FILE *plik = fopen(nazwaPliku, "a");
+    FILE *plik = fopen(fileName, "a");
     if (plik == NULL)
     {
         printf("Nie można otworzyc pliku.\n");
